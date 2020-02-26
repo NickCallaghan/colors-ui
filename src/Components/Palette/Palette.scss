@@ -1,10 +1,17 @@
+* {
+  box-sizing: border-box;
+}
+
 .Palette {
   height: 100vh;
+  text-align: center;
 }
 
 .Palette-colors {
-  height: 90%;
+  height: 95vh;
   display: flex;
   flex-wrap: wrap;
   margin-bottom: 0;
+  flex-direction: row;
+  flex: 1 1;
 }
