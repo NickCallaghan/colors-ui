@@ -19,7 +19,10 @@ function generatePalette(starterPalette) {
         name: `${color.name} ${levels[i]}`,
         id: color.name.toLowerCase().replace(/ /g, "-"),
         hex: scale[i],
-        rgb: chroma(scale[i]).css()
+        rgb: chroma(scale[i]).css(),
+        rgba: chroma(scale[i])
+          .css()
+          .replace(")", ",1.0)")
       });
     }
   }
@@ -38,10 +41,11 @@ function getRange(hexColor) {
 }
 
 function generateScale(hexColor, numberOfColors) {
-  return chroma
+  const scale = chroma
     .scale(getRange(hexColor))
     .mode("lab")
     .colors(numberOfColors);
+  return scale;
 }
 
 export { generatePalette };
