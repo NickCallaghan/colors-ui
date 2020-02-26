@@ -4,12 +4,12 @@ import "./Palette.scss";
 
 export default class Palette extends Component {
   render() {
-    const colorBoxes = this.props.colors.map(color => (
-      <ColorBox name={color.name} background={color.color} key={color.color} />
+    const colorBoxes = this.props.palette.colors[500].map(color => (
+      <ColorBox name={color.name} background={color.hex} key={color.hex} />
     ));
     return (
       <div className="Palette">
-        <h2>{this.props.paletteName}</h2>
+        <h2>{this.props.palette.paletteName}</h2>
         <div className="Palette-colors">{colorBoxes}</div>
       </div>
     );
