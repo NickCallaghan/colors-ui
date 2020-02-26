@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/colors-ui/static/css/main.63b6a4b6.chunk.css",
+    "main.js": "/colors-ui/static/js/main.b8f0a684.chunk.js",
+    "main.js.map": "/colors-ui/static/js/main.b8f0a684.chunk.js.map",
+    "runtime-main.js": "/colors-ui/static/js/runtime-main.52edfa60.js",
+    "runtime-main.js.map": "/colors-ui/static/js/runtime-main.52edfa60.js.map",
+    "static/js/2.4aaf7c65.chunk.js": "/colors-ui/static/js/2.4aaf7c65.chunk.js",
+    "static/js/2.4aaf7c65.chunk.js.map": "/colors-ui/static/js/2.4aaf7c65.chunk.js.map",
+    "index.html": "/colors-ui/index.html",
+    "precache-manifest.d872b1de2bb063420878454451e137a8.js": "/colors-ui/precache-manifest.d872b1de2bb063420878454451e137a8.js",
+    "service-worker.js": "/colors-ui/service-worker.js",
+    "static/css/main.63b6a4b6.chunk.css.map": "/colors-ui/static/css/main.63b6a4b6.chunk.css.map",
+    "static/js/2.4aaf7c65.chunk.js.LICENSE.txt": "/colors-ui/static/js/2.4aaf7c65.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.52edfa60.js",
+    "static/js/2.4aaf7c65.chunk.js",
+    "static/css/main.63b6a4b6.chunk.css",
+    "static/js/main.b8f0a684.chunk.js"
+  ]
+}
