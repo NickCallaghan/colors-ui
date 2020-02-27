@@ -5,11 +5,10 @@ import Slider, { Range } from "rc-slider";
 import "rc-slider/assets/index.css";
 
 export default class Palette extends Component {
-  
-  handleSliderChange(e)={
-    console.log(e)
-  }
-  
+  handleSliderChange = e => {
+    console.log(e);
+  };
+
   render() {
     const colorBoxes = this.props.palette.colors[500].map(color => (
       <ColorBox name={color.name} background={color.hex} key={color.hex} />
