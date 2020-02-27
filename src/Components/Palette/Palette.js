@@ -5,8 +5,12 @@ import Slider, { Range } from "rc-slider";
 import "rc-slider/assets/index.css";
 
 export default class Palette extends Component {
-  handleSliderChange = e => {
-    console.log(e);
+  state = {
+    colorValue: 100
+  };
+
+  handleSliderChange = colorValue => {
+    this.setState({ colorValue });
   };
 
   render() {
