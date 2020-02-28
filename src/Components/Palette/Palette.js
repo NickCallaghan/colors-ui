@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import ColorBox from "../ColorBox/ColorBox";
-import "./Palette.scss";
 import Slider, { Range } from "rc-slider";
+
 import "rc-slider/assets/index.css";
+import "./Palette.scss";
 
 export default class Palette extends Component {
   state = {
-    colorValue: 100
+    colorValue: 500
   };
 
   handleSliderChange = colorValue => {
@@ -21,12 +22,15 @@ export default class Palette extends Component {
     ));
     return (
       <div className="Palette">
-        <Slider
-          step={100}
-          min={100}
-          max={900}
-          onChange={this.handleSliderChange}
-        />
+        <div className="slider-wrapper">
+          <Slider
+            step={100}
+            min={100}
+            max={900}
+            onChange={this.handleSliderChange}
+            value={this.state.colorValue}
+          />
+        </div>
         <h2>{this.props.palette.paletteName}</h2>
         <div className="Palette-colors">{colorBoxes}</div>
       </div>
