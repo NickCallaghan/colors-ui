@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import ColorBox from "../ColorBox/ColorBox";
-import Slider, { Range } from "rc-slider";
+import NavBar from "../NavBar/NavBar";
 
-import "rc-slider/assets/index.css";
 import "./Palette.scss";
 
 export default class Palette extends Component {
@@ -22,16 +21,11 @@ export default class Palette extends Component {
     ));
     return (
       <div className="Palette">
-        <div className="slider-wrapper">
-          <Slider
-            step={100}
-            min={100}
-            max={900}
-            onChange={this.handleSliderChange}
-            value={this.state.colorValue}
-          />
-        </div>
-        <h2>{this.props.palette.paletteName}</h2>
+        <NavBar
+          title={this.props.palette.paletteName}
+          handleSliderChange={this.handleSliderChange}
+          colorValue={this.state.colorValue}
+        />
         <div className="Palette-colors">{colorBoxes}</div>
       </div>
     );
