@@ -9,14 +9,14 @@ export default class Palette extends Component {
     colorValue: 500
   };
 
-  handleSliderChange = colorValue => {
+  handleSliderChange = (colorValue) => {
     this.setState({ colorValue });
   };
 
   render() {
     const colorBoxes = this.props.palette.colors[
       this.state.colorValue
-    ].map(color => (
+    ].map((color) => (
       <ColorBox name={color.name} background={color.hex} key={color.hex} />
     ));
     return (

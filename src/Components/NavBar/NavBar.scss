@@ -2,6 +2,13 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  .nav-logo {
+    font-family: Roboto;
+    font-size: 2em;
+    height: 100%;
+    background-color: #ecefff;
+    padding: 0.3em 0.6em;
+  }
 }
 
 .slider-wrapper {
