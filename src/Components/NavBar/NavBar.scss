@@ -2,6 +2,22 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: flex-start;
+  height: 6vh;
+
+  .logo {
+    font-family: Roboto;
+    font-size: 1.2em;
+    background-color: #eceff1;
+    height: 100%;
+    padding: 0 1em;
+    display: flex;
+    align-items: center;
+    a {
+      text-decoration: none;
+      color: black;
+    }
+  }
 }
 
 .slider-wrapper {
