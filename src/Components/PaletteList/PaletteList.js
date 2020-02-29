@@ -5,7 +5,7 @@ export default class PaletteList extends Component {
   render() {
     const palettes = this.props.palettes.map(p => (
       <React.Fragment>
-        <Link to={`palette/${p.id}`}>
+        <Link to={`colors-ui/palette/${p.id}`}>
           <li>{p.paletteName}</li>
         </Link>
       </React.Fragment>

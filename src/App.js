@@ -21,16 +21,17 @@ export default class App extends Component {
       <Switch>
         <Route
           exact
-          path="/"
+          path="/colors-ui/"
           render={() => <PaletteList palettes={this.state.palettes} />}
         />
         <Route
           exact
-          path="/palette/:id"
+          path="/colors-ui/palette/:id"
           render={routeProps => (
             <Palette palette={this.findPalette(routeProps.match.params.id)} />
           )}
         />
+        <Route render={() => <h1>Not Found</h1>} />
       </Switch>
     );
     return <div className="App">{routes}</div>;
