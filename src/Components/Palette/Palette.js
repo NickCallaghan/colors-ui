@@ -6,11 +6,16 @@ import "./Palette.scss";
 
 export default class Palette extends Component {
   state = {
-    colorValue: 500
+    colorValue: 500,
+    format: "hex"
   };
 
   handleSliderChange = colorValue => {
     this.setState({ colorValue });
+  };
+
+  changeFormat = format => {
+    this.setState({ format });
   };
 
   render() {
@@ -25,6 +30,7 @@ export default class Palette extends Component {
           title={this.props.palette.paletteName}
           handleSliderChange={this.handleSliderChange}
           colorValue={this.state.colorValue}
+          changeFormat={this.changeFormat}
         />
         <div className="Palette-colors">{colorBoxes}</div>
       </div>

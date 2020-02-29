@@ -7,11 +7,20 @@ import "rc-slider/assets/index.css";
 import "./NavBar.scss";
 
 export default class NavBar extends Component {
+  state = {
+    format: "hex"
+  };
+
+  handleChangeFormat = e => {
+    this.setState({ format: e.target.value });
+    this.props.changeFormat(e.target.value);
+  };
+
   render() {
     return (
       <div className="NavBar">
         <div className="logo">
-          <a href="#">React Color Picker</a>
+          <a href="/colors-ui">React Color Picker</a>
         </div>
         <div className="slider-wrapper">
           <Slider
@@ -21,6 +30,13 @@ export default class NavBar extends Component {
             onChange={this.props.handleSliderChange}
             value={this.props.colorValue}
           />
+        </div>
+        <div className="color-format">
+          <Select value={this.state.format} onChange={this.handleChangeFormat}>
+            <MenuItem value="hex">HEX #FFFFFF</MenuItem>
+            <MenuItem value="rgb">RGB rgb(255,255,255)</MenuItem>
+            <MenuItem value="rgba">RGBA rgba(255,255,255,1)</MenuItem>
+          </Select>
         </div>
       </div>
     );
