@@ -32,7 +32,7 @@ export default class App extends Component {
             <Palette palette={this.findPalette(routeProps.match.params.id)} />
           )}
         />
-        <Route render={() => <h1>Not Found</h1>} />
+        <Route render={() => <h1>Sorry, Not Found!</h1>} />
       </Switch>
     );
     return <div className="App">{routes}</div>;
