@@ -2,12 +2,25 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  .nav-logo {
+  justify-content: flex-start;
+  height: 6vh;
+
+  .logo {
     font-family: Roboto;
-    font-size: 2em;
+    font-size: 1.2em;
+    background-color: #eceff1;
     height: 100%;
-    background-color: #ecefff;
-    padding: 0.3em 0.6em;
+    padding: 0 1em;
+    display: flex;
+    align-items: center;
+    a {
+      text-decoration: none;
+      color: black;
+    }
+  }
+  .color-format {
+    margin-left: auto;
+    margin-right: 12px;
   }
 }
 
