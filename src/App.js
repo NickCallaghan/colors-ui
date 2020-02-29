@@ -16,7 +16,6 @@ export default class App extends Component {
   };
 
   render() {
-    console.log(this.findPalette("material-ui-colors"));
     const routes = (
       <Switch>
         <Route

@@ -41,7 +41,7 @@ class PaletteList extends Component {
   render() {
     const { classes } = this.props;
     const palettes = this.props.palettes.map(p => (
-      <React.Fragment>
+      <React.Fragment key={p.paletteName}>
         <Link to={`colors-ui/palette/${p.id}`} className={classes.links}>
           <MiniPalette {...p} />
         </Link>
