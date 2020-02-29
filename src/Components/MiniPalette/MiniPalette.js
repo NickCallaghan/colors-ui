@@ -9,13 +9,22 @@ const styles = {
     postion: "relative",
     overflow: "hidden",
     border: "1px solid black",
+    display: "flex",
+    alignItems: "center",
     "&:hover": {
       cursor: "pointer"
     }
   },
   colors: {},
-  title: {},
-  emoji: {}
+  title: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%"
+  },
+  emoji: {
+    marginLeft: "auto"
+  }
 };
 
 function MiniPalette(props) {
@@ -25,7 +34,7 @@ function MiniPalette(props) {
     <div className={classes.root}>
       <div className={classes.colors}></div>
       <h5 className={classes.title}>
-        {paletteName} <span>{emoji}</span>
+        {paletteName} <span className={classes.emoji}>{emoji}</span>
       </h5>
     </div>
   );
