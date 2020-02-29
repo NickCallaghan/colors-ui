@@ -2,21 +2,31 @@ import React, { Component } from "react";
 import Slider from "rc-slider";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
+import Snackbar from "@material-ui/core/Snackbar";
+import IconButton from "@material-ui/core/IconButton";
+import CloseIcon from "@material-ui/icons/Close";
 
 import "rc-slider/assets/index.css";
 import "./NavBar.scss";
 
 export default class NavBar extends Component {
   state = {
-    format: "hex"
+    format: "hex",
+    showSnackBar: false
   };
 
   handleChangeFormat = e => {
     this.setState({ format: e.target.value });
     this.props.changeFormat(e.target.value);
+    this.setState({ showSnackBar: true });
+  };
+
+  dismissSnackBar = () => {
+    this.setState({ showSnackBar: false });
   };
 
   render() {
+    const { format } = this.state.format;
     return (
       <div className="NavBar">
         <div className="logo">
@@ -38,6 +48,20 @@ export default class NavBar extends Component {
             <MenuItem value="rgba">RGBA rgba(255,255,255,1)</MenuItem>
           </Select>
         </div>
+        <Snackbar
+          open={this.state.showSnackBar}
+          anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+          autoHideDuration={2000}
+          message={<span id="message-id">Format Changed to {format}!</span>}
+          ContentProps={{
+            "aria-describedby": "message-id"
+          }}
+          action={[
+            <IconButton color="inherit" key="close" aria-label="close">
+              <CloseIcon onClick={this.dismissSnackBar} />
+            </IconButton>
+          ]}
+        ></Snackbar>
       </div>
     );
   }
