@@ -16,9 +16,8 @@ export default class NavBar extends Component {
   };
 
   handleChangeFormat = e => {
-    this.setState({ format: e.target.value });
+    this.setState({ format: e.target.value, showSnackBar: true });
     this.props.changeFormat(e.target.value);
-    this.setState({ showSnackBar: true });
   };
 
   dismissSnackBar = () => {
@@ -26,7 +25,7 @@ export default class NavBar extends Component {
   };
 
   render() {
-    const { format } = this.state.format;
+    const { format } = this.state;
     return (
       <div className="NavBar">
         <div className="logo">
@@ -52,6 +51,7 @@ export default class NavBar extends Component {
           open={this.state.showSnackBar}
           anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
           autoHideDuration={2000}
+          onClose={this.dismissSnackBar}
           message={<span id="message-id">Format Changed to {format}!</span>}
           ContentProps={{
             "aria-describedby": "message-id"
