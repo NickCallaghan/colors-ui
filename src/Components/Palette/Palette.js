@@ -10,7 +10,7 @@ export default class Palette extends Component {
     format: "hex"
   };
 
-  handleSliderChange = (colorValue) => {
+  handleSliderChange = colorValue => {
     this.setState({ colorValue });
   };
 
@@ -19,9 +19,10 @@ export default class Palette extends Component {
   };
 
   render() {
+    const { paletteName, emoji } = this.props.palette;
     const colorBoxes = this.props.palette.colors[
       this.state.colorValue
-    ].map((color) => (
+    ].map(color => (
       <ColorBox name={color.name} background={color.hex} key={color.hex} />
     ));
     return (
@@ -33,6 +34,10 @@ export default class Palette extends Component {
           changeFormat={this.changeFormat}
         />
         <div className="Palette-colors">{colorBoxes}</div>
+        <footer className="palette-footer">
+          {paletteName}
+          <span className="emoji">{emoji}</span>
+        </footer>
       </div>
     );
   }

@@ -8,10 +8,23 @@
 }
 
 .Palette-colors {
-  height: 95vh;
+  height: 90vh;
   display: flex;
   flex-wrap: wrap;
   margin-bottom: 0;
   flex-direction: row;
   flex: 1 1;
+}
+
+.palette-footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 4vh;
+  font-weight: bold;
+  margin-right: 15px;
+  .emoji {
+    display: inline-block;
+    margin-left: 5px;
+  }
 }
