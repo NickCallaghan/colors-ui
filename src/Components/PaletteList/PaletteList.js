@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import MiniPalette from "../MiniPalette/MiniPalette";
 import { withStyles } from "@material-ui/styles";
 import "./PaletteList.scss";
@@ -18,7 +17,6 @@ const styles = {
     alignItems: "flex-start",
     flexDirection: "column",
     flexWrap: "wrap"
-    // border: "1px solid white"
   },
   nav: {
     display: "flex",
@@ -38,14 +36,18 @@ const styles = {
 };
 
 class PaletteList extends Component {
+  goToPalette = id => {
+    this.props.history.push(`colors-ui/palette/${id}`);
+  };
+
   render() {
     const { classes } = this.props;
     const palettes = this.props.palettes.map(p => (
-      <React.Fragment key={p.paletteName}>
-        <Link to={`colors-ui/palette/${p.id}`} className={classes.links}>
-          <MiniPalette {...p} />
-        </Link>
-      </React.Fragment>
+      <MiniPalette
+        {...p}
+        key={p.paletteName}
+        handleClick={() => this.goToPalette(p.id)}
+      />
     ));
     return (
       <div className={classes.root}>
