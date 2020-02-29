@@ -20,14 +20,14 @@ export default class App extends Component {
       <Switch>
         <Route
           exact
-          path={`${process.env.PUBLIC_URL}/`}
+          path={`/`}
           render={routeProps => (
             <PaletteList palettes={this.state.palettes} {...routeProps} />
           )}
         />
         <Route
           exact
-          path={`${process.env.PUBLIC_URL}/palette/:id`}
+          path={`/palette/:id`}
           render={routeProps => (
             <Palette palette={this.findPalette(routeProps.match.params.id)} />
           )}
