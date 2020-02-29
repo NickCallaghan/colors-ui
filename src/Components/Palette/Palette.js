@@ -19,18 +19,20 @@ export default class Palette extends Component {
   };
 
   render() {
-    const { paletteName, emoji, id } = this.props.palette;
+    const { paletteName, paletteId, emoji, id } = this.props.palette;
+
+    //Make a color box for each color in the palette
     const colorBoxes = this.props.palette.colors[
       this.state.colorValue
     ].map(color => (
       <ColorBox
         name={color.name}
         background={color[this.state.format]}
-        id={color.id}
-        paletteId={id}
-        key={color.hex}
+        moreUrl={`/palette/${this.props.palette.id}/${color.id}`}
+        key={color.id}
       />
     ));
+
     return (
       <div className="Palette">
         <NavBar
