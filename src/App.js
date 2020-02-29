@@ -19,15 +19,16 @@ export default class App extends Component {
     const routes = (
       <Switch>
         <Route
+          basename={"/colors-ui"}
           exact
-          path="/colors-ui/"
+          path={`${process.env.PUBLIC_URL}/`}
           render={routeProps => (
             <PaletteList palettes={this.state.palettes} {...routeProps} />
           )}
         />
         <Route
           exact
-          path="/colors-ui/palette/:id"
+          path={`${process.env.PUBLIC_URL}/palette/:id`}
           render={routeProps => (
             <Palette palette={this.findPalette(routeProps.match.params.id)} />
           )}
