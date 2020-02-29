@@ -19,7 +19,6 @@ export default class App extends Component {
     const routes = (
       <Switch>
         <Route
-          basename={"/colors-ui"}
           exact
           path={`${process.env.PUBLIC_URL}/`}
           render={routeProps => (
