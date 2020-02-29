@@ -29,7 +29,7 @@ export default class NavBar extends Component {
     return (
       <div className="NavBar">
         <div className="logo">
-          <a href="/colors-ui">React Color Picker</a>
+          <a href="/colors-ui">React Colors</a>
         </div>
         <div className="slider-wrapper">
           <Slider
