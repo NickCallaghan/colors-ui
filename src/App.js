@@ -4,6 +4,7 @@ import seedColors from "./seedColors";
 import { generatePalette } from "./colorHelper";
 import { Route, Switch } from "react-router-dom";
 import PaletteList from "./Components/PaletteList/PaletteList";
+import SingleColorPage from "./Components/SingleColorPage/SingleColorPage";
 
 export default class App extends Component {
   state = {
@@ -35,9 +36,9 @@ export default class App extends Component {
         <Route
           exact
           path={`/palette/:paletteId/:colorId`}
-          render={routeProps => <h1>Single Color Page</h1>}
+          render={routeProps => <SingleColorPage {...routeProps} />}
         />
-        <Route render={() => <h1>Sorry, Not Found!</h1>} />
+        <Route render={() => <h1>Sorry Not Found</h1>} />
       </Switch>
     );
     return <div className="App">{routes}</div>;

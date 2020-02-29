@@ -26,7 +26,7 @@ export default class Palette extends Component {
       <ColorBox
         name={color.name}
         background={color[this.state.format]}
-        colorId={color.id}
+        id={color.id}
         paletteId={id}
         key={color.hex}
       />
@@ -34,7 +34,6 @@ export default class Palette extends Component {
     return (
       <div className="Palette">
         <NavBar
-          title={this.props.palette.paletteName}
           handleSliderChange={this.handleSliderChange}
           colorValue={this.state.colorValue}
           changeFormat={this.changeFormat}
