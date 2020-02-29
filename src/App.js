@@ -21,7 +21,9 @@ export default class App extends Component {
         <Route
           exact
           path="/colors-ui/"
-          render={() => <PaletteList palettes={this.state.palettes} />}
+          render={routeProps => (
+            <PaletteList palettes={this.state.palettes} {...routeProps} />
+          )}
         />
         <Route
           exact
