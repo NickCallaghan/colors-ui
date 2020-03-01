@@ -1,43 +1,40 @@
 import React, { Component } from "react";
-import color from "@material-ui/core/colors/amber";
+import { gatherShades } from "../../helpers/colorHelpers";
+import NavBar from "../NavBar/NavBar";
 import ColorBox from "../ColorBox/ColorBox";
 
 import "./SingleColorPage.scss";
 
 export default class SingleColorPage extends Component {
-  state = {
-    colors: []
-  };
+  constructor(props) {
+    super(props);
 
-  findSingleColors = () => {
-    const { colorId } = this.props.match.params;
-    const { colors } = this.props.palette; //The colors in the palette at each level
-    const levels = Object.keys(colors); // The color levels are the keys
-
-    // Each color that matches is pushed onto the singleColors array
-    const singleColors = [];
-    // TODO -  Match the color at every color level and push on to array
-    for (let l of levels) {
-      const color = colors[l].find(color => color.id === colorId);
-      singleColors.push(color);
-    }
-    return singleColors;
-  };
-
-  componentDidMount() {
-    const colors = this.findSingleColors();
-    this.setState({ colors });
+    const colorId = this.props.match.params.colorId;
+    const palette = this.props.palette;
+    this._shades = gatherShades(colorId, palette);
+    console.log(this._shades);
   }
 
   render() {
-    const { paletteId } = this.props.match.params;
-    const colorsBoxes = this.state.colors.map(color => (
-      <ColorBox name={color.name} background={color.hex} key={color.id} />
+    // const { paletteId } = this.props.match.params;
+    const colorsBoxes = this._shades.map(color => (
+      <ColorBox
+        tall={true}
+        name={color.name}
+        background={color.hex}
+        key={color.name}
+        showLink={false}
+      />
     ));
+    const { paletteName, emoji } = this.props.palette;
     return (
-      <div className="SingleColorPage">
-        <h2>{paletteId}</h2>
-        {colorsBoxes}
+      <div className="Palette">
+        <NavBar showSlider={false} allowChangeFormat={false} />
+        <div className="Palette-colors">{colorsBoxes}</div>
+        <footer className="palette-footer">
+          {paletteName}
+          <span className="emoji">{emoji}</span>
+        </footer>
       </div>
     );
   }
