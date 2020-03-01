@@ -52,6 +52,10 @@
   }
 }
 
+.ColorBox.tall {
+  height: 50%;
+}
+
 .ColorBox:hover .copy-button {
   opacity: 1;
 }

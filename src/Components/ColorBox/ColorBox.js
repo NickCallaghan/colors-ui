@@ -4,6 +4,11 @@ import { Link } from "react-router-dom";
 import "./ColorBox.scss";
 
 export default class ColorBox extends Component {
+  static defaultProps = {
+    showLink: true,
+    tall: false
+  };
+
   state = {
     showCopyOverlay: false
   };
@@ -29,7 +34,10 @@ export default class ColorBox extends Component {
         text={this.props.background}
         onCopy={this.changeCopyState}
       >
-        <div className="ColorBox" style={{ background }}>
+        <div
+          className={`ColorBox ${this.props.tall ? `tall` : ""}`}
+          style={{ background }}
+        >
           <div
             className={`copy-overlay ${this.state.showCopyOverlay && "show"}`}
             style={{ background }}
@@ -44,7 +52,7 @@ export default class ColorBox extends Component {
             </div>
             <button className="copy-button">Copy</button>
           </div>
-          {this.props.moreUrl && linkDiv}
+          {this.props.showLink && linkDiv}
         </div>
       </CopyToClipboard>
     );
