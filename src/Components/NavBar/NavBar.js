@@ -10,6 +10,11 @@ import "rc-slider/assets/index.css";
 import "./NavBar.scss";
 
 export default class NavBar extends Component {
+  static defaultProps = {
+    showSlider: true,
+    allowChangeFormat: true
+  };
+
   state = {
     format: "hex",
     showSnackBar: false
@@ -26,27 +31,35 @@ export default class NavBar extends Component {
 
   render() {
     const { format } = this.state;
+    const sliderDiv = (
+      <div className="slider-wrapper">
+        <Slider
+          step={100}
+          min={100}
+          max={900}
+          onChange={this.props.handleSliderChange}
+          value={this.props.colorValue}
+        />
+      </div>
+    );
+
+    const changeFormatDiv = (
+      <div className="color-format">
+        <Select value={this.state.format} onChange={this.handleChangeFormat}>
+          <MenuItem value="hex">HEX #FFFFFF</MenuItem>
+          <MenuItem value="rgb">RGB rgb(255,255,255)</MenuItem>
+          <MenuItem value="rgba">RGBA rgba(255,255,255,1)</MenuItem>
+        </Select>
+      </div>
+    );
+
     return (
       <div className="NavBar">
         <div className="logo">
           <a href="/colors-ui">React Colors</a>
         </div>
-        <div className="slider-wrapper">
-          <Slider
-            step={100}
-            min={100}
-            max={900}
-            onChange={this.props.handleSliderChange}
-            value={this.props.colorValue}
-          />
-        </div>
-        <div className="color-format">
-          <Select value={this.state.format} onChange={this.handleChangeFormat}>
-            <MenuItem value="hex">HEX #FFFFFF</MenuItem>
-            <MenuItem value="rgb">RGB rgb(255,255,255)</MenuItem>
-            <MenuItem value="rgba">RGBA rgba(255,255,255,1)</MenuItem>
-          </Select>
-        </div>
+        {this.props.showSlider && sliderDiv}
+        {this.props.allowChangeFormat && changeFormatDiv}
         <Snackbar
           open={this.state.showSnackBar}
           anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
