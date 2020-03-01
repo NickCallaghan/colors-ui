@@ -6,8 +6,7 @@ import "./Palette.scss";
 
 export default class Palette extends Component {
   state = {
-    colorValue: 500,
-    format: "hex"
+    colorValue: 500
   };
 
   handleSliderChange = colorValue => {
@@ -27,7 +26,7 @@ export default class Palette extends Component {
     ].map(color => (
       <ColorBox
         name={color.name}
-        background={color[this.state.format]}
+        background={color[this.props.format]}
         moreUrl={`/palette/${this.props.palette.id}/${color.id}`}
         key={color.id}
       />
@@ -38,7 +37,8 @@ export default class Palette extends Component {
         <NavBar
           handleSliderChange={this.handleSliderChange}
           colorValue={this.state.colorValue}
-          changeFormat={this.changeFormat}
+          changeFormat={this.props.updateFormat}
+          format={this.props.format}
         />
         <div className="Palette-colors">{colorBoxes}</div>
         <footer className="palette-footer">

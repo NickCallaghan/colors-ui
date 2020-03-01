@@ -8,12 +8,17 @@ import SingleColorPage from "./Components/SingleColorPage/SingleColorPage";
 
 export default class App extends Component {
   state = {
-    palettes: [...seedColors]
+    palettes: [...seedColors],
+    format: "hex"
   };
 
   findPalette = id => {
     const thisPalette = this.state.palettes.find(p => p.id === id);
     return generatePalette(thisPalette);
+  };
+
+  updateFormat = format => {
+    this.setState({ format });
   };
 
   render() {
@@ -30,7 +35,11 @@ export default class App extends Component {
           exact
           path={`/palette/:id`}
           render={routeProps => (
-            <Palette palette={this.findPalette(routeProps.match.params.id)} />
+            <Palette
+              palette={this.findPalette(routeProps.match.params.id)}
+              format={this.state.format}
+              updateFormat={this.updateFormat}
+            />
           )}
         />
         <Route
@@ -40,6 +49,8 @@ export default class App extends Component {
             <SingleColorPage
               {...routeProps}
               palette={this.findPalette(routeProps.match.params.paletteId)}
+              format={this.state.format}
+              updateFormat={this.updateFormat}
             />
           )}
         />

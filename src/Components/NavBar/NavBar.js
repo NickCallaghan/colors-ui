@@ -16,7 +16,7 @@ export default class NavBar extends Component {
   };
 
   state = {
-    format: "hex",
+    format: this.props.format,
     showSnackBar: false
   };
 
