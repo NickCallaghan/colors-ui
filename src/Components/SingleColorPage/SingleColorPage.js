@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { gatherShades } from "../../helpers/colorHelpers";
 import NavBar from "../NavBar/NavBar";
 import ColorBox from "../ColorBox/ColorBox";
+import Footer from "../Footer/Footer";
 
 import "./SingleColorPage.scss";
 
@@ -34,10 +35,7 @@ export default class SingleColorPage extends Component {
           format={this.props.format}
         />
         <div className="Palette-colors">{colorBoxes}</div>
-        <footer className="palette-footer">
-          {paletteName}
-          <span className="emoji">{emoji}</span>
-        </footer>
+        <Footer paletteName={paletteName} emoji={emoji} />
       </div>
     );
   }
