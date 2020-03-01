@@ -6,8 +6,10 @@
   cursor: pointer;
   margin: 0;
   padding: 0;
+  background-color: black;
 
-  .copy-button {
+  .copy-button,
+  .go-back-button {
     width: 100px;
     height: 30px;
     position: absolute;
@@ -23,8 +25,13 @@
     line-height: 30px;
     border: none;
     color: white;
-    opacity: 0;
+    text-decoration: none;
+
     transition: 0.2s opacity;
+  }
+
+  .copy-button {
+    opacity: 0;
   }
 
   .box-content {

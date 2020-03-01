@@ -38,6 +38,7 @@ export default class ColorBox extends Component {
           className={`ColorBox ${this.props.tall ? `tall` : ""}`}
           style={{ background }}
         >
+          {this.props.children}
           <div
             className={`copy-overlay ${this.state.showCopyOverlay && "show"}`}
             style={{ background }}
