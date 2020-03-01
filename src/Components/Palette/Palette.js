@@ -19,7 +19,7 @@ export default class Palette extends Component {
   };
 
   render() {
-    const { paletteName, paletteId, emoji, id } = this.props.palette;
+    const { paletteName, emoji } = this.props.palette;
 
     //Make a color box for each color in the palette
     const colorBoxes = this.props.palette.colors[
