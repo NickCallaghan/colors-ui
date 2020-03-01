@@ -27,6 +27,15 @@
 .slider-wrapper {
   width: 340px;
   margin: 0 30px;
+  display: flex;
+
+  .slider-label {
+    margin-right: 10px;
+  }
+
+  .rc-slider {
+    width: 70%;
+  }
   .rc-slider-handle,
   .rc-slider-handle:active,
   .rc-slider-handle:focus,
