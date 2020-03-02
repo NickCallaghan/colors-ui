@@ -25,8 +25,12 @@
     line-height: 30px;
     border: none;
     text-decoration: none;
-
+    color: white;
     transition: 0.2s opacity;
+
+    .dark-text {
+      color: black;
+    }
   }
 
   .copy-button {

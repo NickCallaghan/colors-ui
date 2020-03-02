@@ -45,7 +45,6 @@ export default class ColorBox extends Component {
           style={{ background }}
         >
           {this.props.children}
-          {this.props.showLink && linkDiv}
 
           <div
             className={`copy-overlay ${this.state.showCopyOverlay && "show"}`}
@@ -61,6 +60,7 @@ export default class ColorBox extends Component {
             </div>
             <button className={`copy-button ${textColor}`}>Copy</button>
           </div>
+          {this.props.showLink && linkDiv}
         </div>
       </CopyToClipboard>
     );
