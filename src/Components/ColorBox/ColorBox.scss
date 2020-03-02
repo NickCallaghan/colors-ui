@@ -27,14 +27,14 @@
     text-decoration: none;
     color: white;
     transition: 0.2s opacity;
-
-    .dark-text {
-      color: black;
-    }
   }
 
   .copy-button {
     opacity: 0;
+  }
+
+  .copy-button.dark-text {
+    color: black;
   }
 
   .box-content {
