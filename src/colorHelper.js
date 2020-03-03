@@ -23,6 +23,7 @@ function generatePalette(starterPalette) {
         rgba: chroma(scale[i])
           .css()
           .replace(")", ",1.0)")
+          .replace("rgb", "rgba")
       });
     }
   }

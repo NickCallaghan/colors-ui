@@ -2,9 +2,22 @@ import React, { Component } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { Link } from "react-router-dom";
 import chroma from "chroma-js";
+import { withStyles } from "@material-ui/styles";
 import "./ColorBox.scss";
 
-export default class ColorBox extends Component {
+const isDarkColor = props =>
+  chroma(props.background).luminance() < 0.37 ? "white" : "black";
+
+const styles = {
+  ColorBox: {
+    height: props => (props.tall ? "50%" : "25%")
+  },
+  dynamicTextColor: {
+    color: props => isDarkColor(props)
+  }
+};
+
+class ColorBox extends Component {
   static defaultProps = {
     showLink: true,
     tall: false
@@ -23,15 +36,11 @@ export default class ColorBox extends Component {
   };
 
   render() {
-    const { name, background, moreUrl } = this.props;
+    const { name, background, moreUrl, classes } = this.props;
 
-    const textColor =
-      chroma(this.props.background).luminance() < 0.37
-        ? "light-text"
-        : "dark-text";
     const linkDiv = (
       <Link to={moreUrl} onClick={e => e.stopPropagation()}>
-        <span className={`see-more ${textColor}`}>more</span>
+        <span className={`see-more ${classes.dynamicTextColor}`}>more</span>
       </Link>
     );
 
@@ -40,25 +49,22 @@ export default class ColorBox extends Component {
         text={this.props.background}
         onCopy={this.changeCopyState}
       >
-        <div
-          className={`ColorBox ${this.props.tall ? `tall` : ""}`}
-          style={{ background }}
-        >
-          {this.props.children}
-
+        <div className={`ColorBox ${classes.ColorBox}`} style={{ background }}>
           <div
             className={`copy-overlay ${this.state.showCopyOverlay && "show"}`}
             style={{ background }}
           ></div>
           <div className={`copy-msg ${this.state.showCopyOverlay && "show"}`}>
             <h1>{this.props.name}</h1>
-            <p>{this.props.background}</p>
+            <p className={classes.dynamicTextColor}>{this.props.background}</p>
           </div>
           <div className="copy-container">
             <div className="box-content">
-              <span className={textColor}>{name}</span>
+              <span className={classes.dynamicTextColor}>{name}</span>
             </div>
-            <button className={`copy-button ${textColor}`}>Copy</button>
+            <button className={`copy-button ${classes.dynamicTextColor}`}>
+              Copy
+            </button>
           </div>
           {this.props.showLink && linkDiv}
         </div>
@@ -66,3 +72,5 @@ export default class ColorBox extends Component {
     );
   }
 }
+
+export default withStyles(styles)(ColorBox);
