@@ -5,20 +5,7 @@ import ColorBox from "../ColorBox/ColorBox";
 import Footer from "../Footer/Footer";
 import { Link } from "react-router-dom";
 import { withStyles } from "@material-ui/styles";
-
-const styles = {
-  SingleColorPalette: {
-    height: "100vh",
-    textAlign: "center"
-  },
-  SinglePaletteColors: {
-    height: "90vh",
-    display: "flex",
-    flexWrap: "wrap",
-    marginBottom: "0",
-    flexDirection: "row"
-  }
-};
+import styles from "./SingleColorPageStyles";
 
 class SingleColorPage extends Component {
   constructor(props) {

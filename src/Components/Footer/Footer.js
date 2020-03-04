@@ -1,12 +1,16 @@
 import React from "react";
+import { withStyles } from "@material-ui/styles";
+import styles from "./FooterStyles";
 import "./Footer.scss";
 
-export default function Footer(props) {
-  const { paletteName, emoji } = props;
+function Footer(props) {
+  const { paletteName, emoji, classes } = props;
+
   return (
-    <footer className="palette-footer">
+    <footer className={classes.Footer}>
       {paletteName}
       <span className="emoji">{emoji}</span>
     </footer>
   );
 }
+export default withStyles(styles)(Footer);
