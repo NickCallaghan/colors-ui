@@ -4,10 +4,23 @@ import NavBar from "../NavBar/NavBar";
 import ColorBox from "../ColorBox/ColorBox";
 import Footer from "../Footer/Footer";
 import { Link } from "react-router-dom";
+import { withStyles } from "@material-ui/styles";
 
-import "./SingleColorPage.scss";
+const styles = {
+  SingleColorPalette: {
+    height: "100vh",
+    textAlign: "center"
+  },
+  SinglePaletteColors: {
+    height: "90vh",
+    display: "flex",
+    flexWrap: "wrap",
+    marginBottom: "0",
+    flexDirection: "row"
+  }
+};
 
-export default class SingleColorPage extends Component {
+class SingleColorPage extends Component {
   constructor(props) {
     super(props);
 
@@ -27,15 +40,16 @@ export default class SingleColorPage extends Component {
       />
     ));
     const { paletteName, emoji, id } = this.props.palette;
+    const { classes } = this.props;
     return (
-      <div className="Palette">
+      <div className={classes.Palette}>
         <NavBar
           showSlider={false}
           allowChangeFormat={true}
           changeFormat={this.props.updateFormat}
           format={this.props.format}
         />
-        <div className="Palette-colors">
+        <div className={classes.SinglePaletteColors}>
           {colorBoxes}
           <div className="ColorBox go-back tall">
             <Link to={`/palette/${id}`} className="go-back-button">
@@ -48,3 +62,5 @@ export default class SingleColorPage extends Component {
     );
   }
 }
+
+export default withStyles(styles)(SingleColorPage);
