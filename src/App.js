@@ -5,6 +5,7 @@ import { generatePalette } from "./colorHelper";
 import { Route, Switch } from "react-router-dom";
 import PaletteList from "./Components/PaletteList/PaletteList";
 import SingleColorPage from "./Components/SingleColorPage/SingleColorPage";
+import NewPaletteForm from "./Components/NewPaletteForm/NewPaletteForm";
 
 export default class App extends Component {
   state = {
@@ -30,6 +31,11 @@ export default class App extends Component {
           render={routeProps => (
             <PaletteList palettes={this.state.palettes} {...routeProps} />
           )}
+        />
+        <Route
+          exact
+          path={`/palette/new`}
+          render={routeProps => <NewPaletteForm {...routeProps} />}
         />
         <Route
           exact

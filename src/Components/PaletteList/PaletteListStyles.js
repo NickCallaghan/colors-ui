@@ -20,7 +20,13 @@ export default {
   nav: {
     display: "flex",
     width: "100%",
-    color: "white"
+    color: "white",
+    flexDirection: "row",
+    alignItems: "center",
+    "& a": {
+      color: "#fff",
+      marginLeft: "auto"
+    }
   },
   palettes: {
     boxSizing: "border-box",
