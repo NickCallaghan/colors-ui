@@ -1,79 +1,31 @@
 import React from "react";
 import clsx from "clsx";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { useTheme } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
+import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
+import AddCircleOutline from "@material-ui/icons/AddCircleOutline";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-
-const drawerWidth = 240;
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    display: "flex"
-  },
-  appBar: {
-    transition: theme.transitions.create(["margin", "width"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
-    })
-  },
-  appBarShift: {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: drawerWidth,
-    transition: theme.transitions.create(["margin", "width"], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen
-    })
-  },
-  menuButton: {
-    marginRight: theme.spacing(2)
-  },
-  hide: {
-    display: "none"
-  },
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0
-  },
-  drawerPaper: {
-    width: drawerWidth
-  },
-  drawerHeader: {
-    display: "flex",
-    alignItems: "center",
-    padding: theme.spacing(0, 1),
-    ...theme.mixins.toolbar,
-    justifyContent: "flex-end"
-  },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
-    transition: theme.transitions.create("margin", {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
-    }),
-    marginLeft: -drawerWidth
-  },
-  contentShift: {
-    transition: theme.transitions.create("margin", {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen
-    }),
-    marginLeft: 0
-  }
-}));
+import TextField from "@material-ui/core/TextField";
+import { ChromePicker } from "react-color";
+import useNewPalette from "../../hooks/useNewPalette";
+import useStyles from "./newPaletteStyles";
+import MenuIcon from "@material-ui/icons/Menu";
+import useInputState from "../../hooks/useInputState";
 
 export default function NewPaletteForm() {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(true);
+  const [pickerColor, setPickerColor] = React.useState("#CC25E0");
+  const [colorName, setColorName, resetColorName] = useInputState();
+  const { newPaletteColors, dispatch } = useNewPalette();
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -81,6 +33,15 @@ export default function NewPaletteForm() {
 
   const handleDrawerClose = () => {
     setOpen(false);
+  };
+
+  const handleAddColor = () => {
+    dispatch({ type: "ADD", hex: pickerColor, name: colorName });
+    resetColorName();
+  };
+
+  const handleClearPalette = () => {
+    dispatch({ type: "CLEAR" });
   };
 
   return (
@@ -100,7 +61,7 @@ export default function NewPaletteForm() {
             edge="start"
             className={clsx(classes.menuButton, open && classes.hide)}
           >
-            <MenuIcon />
+            <AddCircleOutline />
           </IconButton>
           <Typography variant="h6" noWrap>
             Create New Palette
@@ -126,7 +87,33 @@ export default function NewPaletteForm() {
           </IconButton>
         </div>
         <Divider />
+        <Button
+          color="primary"
+          variant="contained"
+          onClick={handleClearPalette}
+        >
+          Clear Pallette
+        </Button>
+        <Button color="secondary" variant="contained">
+          Random Color
+        </Button>
+        <ChromePicker
+          color={pickerColor}
+          onChange={e => setPickerColor(e.hex)}
+        />
+        <TextField
+          id="color-name"
+          label="Color Name"
+          variant="filled"
+          value={colorName}
+          onChange={e => setColorName(e.target.value)}
+        />
+
+        <Button variant="contained" color="primary" onClick={handleAddColor}>
+          Add To Palette
+        </Button>
       </Drawer>
+      <Typography variant="h1">Add a new palette</Typography>
     </div>
   );
 }
