@@ -13,8 +13,8 @@ import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
 import { ChromePicker } from "react-color";
+import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 
 // Custom Components & Hooks ----------------------------------//
 import DraggableColorBox from "../DraggableColorBox/DraggableColorBox";
@@ -89,6 +89,7 @@ const useStyles = makeStyles(theme => ({
 export default function PersistentDrawerLeft() {
   const classes = useStyles();
   const theme = useTheme();
+
   const [open, setOpen] = React.useState(true);
   const [pickerColor, setPickerColor] = React.useState("#CC25E0");
   const [colorName, setColorName, resetColorName] = useInputState();
@@ -138,7 +139,7 @@ export default function PersistentDrawerLeft() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            Persistent drawer
+            Create a new palette
           </Typography>
         </Toolbar>
       </AppBar>
@@ -174,6 +175,7 @@ export default function PersistentDrawerLeft() {
             color="secondary"
             variant="contained"
             onClick={handleRandomColor}
+            disabled={newPaletteColors.length < 20 ? false : true}
           >
             Random Color
           </Button>
@@ -182,22 +184,28 @@ export default function PersistentDrawerLeft() {
           color={pickerColor}
           onChange={e => setPickerColor(e.hex)}
         />
-        <TextField
-          id="color-name"
-          label="Color Name"
-          variant="filled"
-          value={colorName}
-          onChange={e => setColorName(e.target.value)}
-        />
 
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={handleAddColor}
-          style={{ backgroundColor: pickerColor }}
-        >
-          Add To Palette
-        </Button>
+        <ValidatorForm onSubmit={handleAddColor}>
+          <TextValidator
+            label="Color Name"
+            value={colorName}
+            onChange={e => setColorName(e.target.value)}
+            validators={["required"]}
+            errorMessages={["this field is required"]}
+            fullWidth
+          />
+          <Button
+            variant="contained"
+            color="primary"
+            type="submit"
+            onClick={handleAddColor}
+            style={{ backgroundColor: pickerColor }}
+            disabled={newPaletteColors.length < 20 ? false : true}
+            fullWidth
+          >
+            {newPaletteColors.length < 20 ? "Add To Palette" : "Palette Full"}
+          </Button>
+        </ValidatorForm>
       </Drawer>
       <main
         className={clsx(classes.content, {
@@ -206,7 +214,7 @@ export default function PersistentDrawerLeft() {
       >
         <div className={classes.drawerHeader} />
         {newPaletteColors.map(color => {
-          return <DraggableColorBox color={color.hex} />;
+          return <DraggableColorBox color={color.hex} name={color.name} />;
         })}
       </main>
     </div>
