@@ -4,11 +4,17 @@ import { withStyles } from "@material-ui/styles";
 const styles = {
   root: {
     width: "20%",
-    height: "calc(25% - 70px)",
+    height: "calc(25% - (69px/4))",
     display: "inline-block",
     position: "relative",
-    cursor: "pointer",
-    marginBottom: "-3.5px"
+    cursor: "pointer"
+  },
+  wrapper: {
+    display: "flex",
+    height: "100%",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center"
   }
 };
 
@@ -18,7 +24,10 @@ function DraggableColorBox(props) {
       className={props.classes.root}
       style={{ backgroundColor: props.color }}
     >
-      {props.color}
+      <div className={props.classes.wrapper}>
+        <p>{props.color}</p>
+        <p>{props.name}</p>
+      </div>
     </div>
   );
 }

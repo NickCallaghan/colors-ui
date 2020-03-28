@@ -24,6 +24,52 @@ function randomChoice(arr) {
 }
 export { randomChoice };
 
+const adjectives = [
+  "rapid",
+  "productive",
+  "quarrelsome",
+  "shrill",
+  "capricious",
+  "blue",
+  "delicate",
+  "rude",
+  "three",
+  "ethereal",
+  "right",
+  "unequal",
+  "extra - small",
+  "thin",
+  "delirious",
+  "paltry",
+  "successfully",
+  "momentous",
+  "loud",
+  "kaput"
+];
+
+const nouns = [
+  "opportunity",
+  "penalty",
+  "data",
+  "setting",
+  "week",
+  "union",
+  "nation",
+  "dealer",
+  "virus",
+  "grocery",
+  "freedom",
+  "boyfriend",
+  "storage",
+  "cousin",
+  "meat",
+  "combination",
+  "shopping",
+  "accident",
+  "physics",
+  "owner"
+];
+
 // Get a random color object
 function randomColor() {
   const colorParts = ["#"];
@@ -48,7 +94,11 @@ function randomColor() {
   for (let i = 0; i < 6; i++) {
     colorParts.push(randomChoice(base16Chars));
   }
-  return { id: uuid(), name: faker.random.words(), hex: colorParts.join("") };
+  return {
+    id: uuid(),
+    name: `${randomChoice(adjectives)} ${randomChoice(nouns)}`,
+    hex: colorParts.join("")
+  };
 }
 
 export { randomColor };
