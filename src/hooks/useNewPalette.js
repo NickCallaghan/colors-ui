@@ -1,4 +1,4 @@
-import { useState, useReducer } from "react";
+import { useReducer } from "react";
 import newPaletteReducer from "../reducers/newPaletterReducer";
 
 const defaultColors = [
@@ -17,5 +17,5 @@ const defaultColors = [
 export default function useNewPalette() {
   //   const [state, setState] = useState(defaultColors);
   const [state, dispatch] = useReducer(newPaletteReducer, defaultColors);
-  return { state, dispatch };
+  return [state, dispatch];
 }
