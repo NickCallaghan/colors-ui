@@ -63,6 +63,7 @@ export default class App extends Component {
         <Route render={() => <h1>Sorry Not Found</h1>} />
       </Switch>
     );
+
     return <div className="App">{routes}</div>;
   }
 }

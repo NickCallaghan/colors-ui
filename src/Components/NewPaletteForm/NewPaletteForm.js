@@ -1,3 +1,4 @@
+// 3rd Party Components ---------------------------------------//
 import React from "react";
 import clsx from "clsx";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
@@ -11,8 +12,20 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import { ChromePicker } from "react-color";
 
-const drawerWidth = 240;
+// Custom Components & Hooks ----------------------------------//
+import DraggableColorBox from "../DraggableColorBox/DraggableColorBox";
+import useInputState from "../../hooks/useInputState";
+import useNewPalette from "../../hooks/useNewPalette";
+import { randomColor } from "../../helpers/colorHelpers";
+
+const drawerWidth = 300;
+
+// const state = useContext(NewPaletteContext);
+// const dispatch = useContext(DispatchContext);
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -21,7 +34,8 @@ const useStyles = makeStyles(theme => ({
   appBar: {
     transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
+      duration: theme.transitions.duration.leavingScreen,
+      height: 72
     })
   },
   appBarShift: {
@@ -49,12 +63,14 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     alignItems: "center",
     padding: theme.spacing(0, 1),
+    // necessary for content to be below app bar
     ...theme.mixins.toolbar,
     justifyContent: "flex-end"
   },
   content: {
     flexGrow: 1,
-    padding: theme.spacing(3),
+    height: "100vh",
+    padding: 0,
     transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen
@@ -70,10 +86,13 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function NewPaletteForm() {
+export default function PersistentDrawerLeft() {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(true);
+  const [pickerColor, setPickerColor] = React.useState("#CC25E0");
+  const [colorName, setColorName, resetColorName] = useInputState();
+  const [newPaletteColors, dispatch] = useNewPalette();
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -81,6 +100,22 @@ export default function NewPaletteForm() {
 
   const handleDrawerClose = () => {
     setOpen(false);
+  };
+
+  const handleAddColor = () => {
+    if (colorName) {
+      dispatch({ type: "ADD", hex: pickerColor, name: colorName });
+      resetColorName();
+    }
+  };
+
+  const handleClearPalette = () => {
+    dispatch({ type: "CLEAR" });
+  };
+
+  const handleRandomColor = () => {
+    const color = randomColor();
+    dispatch({ type: "ADD", hex: color.hex, name: color.name });
   };
 
   return (
@@ -103,7 +138,7 @@ export default function NewPaletteForm() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            Create New Palette
+            Persistent drawer
           </Typography>
         </Toolbar>
       </AppBar>
@@ -126,7 +161,54 @@ export default function NewPaletteForm() {
           </IconButton>
         </div>
         <Divider />
+        <Typography variant="h4">Design your palette</Typography>
+        <div>
+          <Button
+            color="primary"
+            variant="contained"
+            onClick={handleClearPalette}
+          >
+            Clear Pallette
+          </Button>
+          <Button
+            color="secondary"
+            variant="contained"
+            onClick={handleRandomColor}
+          >
+            Random Color
+          </Button>
+        </div>
+        <ChromePicker
+          color={pickerColor}
+          onChange={e => setPickerColor(e.hex)}
+        />
+        <TextField
+          id="color-name"
+          label="Color Name"
+          variant="filled"
+          value={colorName}
+          onChange={e => setColorName(e.target.value)}
+        />
+
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleAddColor}
+          style={{ backgroundColor: pickerColor }}
+        >
+          Add To Palette
+        </Button>
       </Drawer>
+      <main
+        className={clsx(classes.content, {
+          [classes.contentShift]: open
+        })}
+      >
+        <div className={classes.drawerHeader} />
+        {newPaletteColors.map(color => {
+          return <DraggableColorBox color={color.hex} />;
+        })}
+      </main>
     </div>
   );
 }
