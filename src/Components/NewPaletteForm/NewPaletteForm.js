@@ -1,5 +1,5 @@
 // 3rd Party Components ---------------------------------------//
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import clsx from "clsx";
 import { useTheme } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
@@ -61,6 +61,26 @@ export default function PersistentDrawerLeft() {
     const color = randomColor();
     dispatch({ type: "ADD", hex: color.hex, name: color.name });
   };
+
+  useEffect(() => {
+    //Add a validator rule to check color name is unique
+    ValidatorForm.addValidationRule("isUniqueColorName", value => {
+      let isValid = true;
+      isValid = newPaletteColors.every(
+        ({ name }) => name.toLowerCase() !== value.toLowerCase()
+      );
+      return isValid;
+    });
+    // Add validator rule to ensure the color is unique
+    // ValidatorForm.addValidationRule("isUniqueColor", value => {
+    //   let isValid = true;
+    //   isValid = newPaletteColors.every(({ hex }) => {
+    //     console.log(pickerColor);
+    //     return hex !== pickerColor;
+    //   });
+    //   return isValid;
+    // });
+  }, []);
 
   return (
     <div className={classes.root}>
@@ -140,8 +160,12 @@ export default function PersistentDrawerLeft() {
               label="Color Name"
               value={colorName}
               onChange={e => setColorName(e.target.value)}
-              validators={["required"]}
-              errorMessages={["this field is required"]}
+              validators={["required", "isUniqueColorName", "isUniqueColor"]}
+              errorMessages={[
+                "this field is required",
+                "Color name must be unique",
+                "Color already in palette"
+              ]}
               fullWidth
             />
             <Button
