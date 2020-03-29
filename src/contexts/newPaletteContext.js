@@ -32,8 +32,7 @@
 //   );
 // }
 
-import React, { createContext, useReducer } from "react";
-import newPaletteReducer from "../reducers/newPaletterReducer";
+import React, { createContext } from "react";
 import useNewPalette from "../hooks/useNewPalette";
 
 const defaultColors = [
@@ -53,11 +52,10 @@ export const NewPaletteContext = createContext();
 export const DispatchContext = createContext();
 
 export default function NewPaletteProvider(props) {
-  const { newPalettColors, dispatch } = useNewPalette();
-  // const { newPaletteColors, dispatch } = useNewPalette();
+  const { newPaletteColors, dispatch } = useNewPalette(defaultColors);
 
   return (
-    <NewPaletteContext.Provider value={newPalettColors}>
+    <NewPaletteContext.Provider value={newPaletteColors}>
       <DispatchContext.Provider value={dispatch}>
         {props.children}
       </DispatchContext.Provider>

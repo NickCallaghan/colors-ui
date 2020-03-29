@@ -1,5 +1,5 @@
 // 3rd Party Components ---------------------------------------//
-import React from "react";
+import React, { useContext } from "react";
 import clsx from "clsx";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
@@ -9,23 +9,25 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import Button from "@material-ui/core/Button";
+import Fab from "@material-ui/core/Fab";
 import { ChromePicker } from "react-color";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
+import AddIcon from "@material-ui/icons/Add";
 
 // Custom Components & Hooks ----------------------------------//
+import Wrapper from "../Wrapper/Wrapper";
 import DraggableColorBox from "../DraggableColorBox/DraggableColorBox";
 import useInputState from "../../hooks/useInputState";
-import useNewPalette from "../../hooks/useNewPalette";
+import {
+  NewPaletteContext,
+  DispatchContext
+} from "../../contexts/newPaletteContext";
 import { randomColor } from "../../helpers/colorHelpers";
 
-const drawerWidth = 300;
-
-// const state = useContext(NewPaletteContext);
-// const dispatch = useContext(DispatchContext);
+const drawerWidth = 350;
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -34,8 +36,7 @@ const useStyles = makeStyles(theme => ({
   appBar: {
     transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-      height: 72
+      duration: theme.transitions.duration.leavingScreen
     })
   },
   appBarShift: {
@@ -83,6 +84,12 @@ const useStyles = makeStyles(theme => ({
       duration: theme.transitions.duration.enteringScreen
     }),
     marginLeft: 0
+  },
+  headerTitle: {
+    marginTop: "0.5em"
+  },
+  buttonRow: {
+    margin: "1em 0 1em 0 "
   }
 }));
 
@@ -93,7 +100,8 @@ export default function PersistentDrawerLeft() {
   const [open, setOpen] = React.useState(true);
   const [pickerColor, setPickerColor] = React.useState("#CC25E0");
   const [colorName, setColorName, resetColorName] = useInputState();
-  const [newPaletteColors, dispatch] = useNewPalette();
+  const newPaletteColors = useContext(NewPaletteContext);
+  const dispatch = useContext(DispatchContext);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -129,16 +137,18 @@ export default function PersistentDrawerLeft() {
         })}
       >
         <Toolbar>
-          <IconButton
-            color="inherit"
+          <Fab
+            color="secondary"
+            size="small"
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
             className={clsx(classes.menuButton, open && classes.hide)}
           >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap>
+            <AddIcon />
+          </Fab>
+
+          <Typography variant="h6" className={classes.sidebarHeading} noWrap>
             Create a new palette
           </Typography>
         </Toolbar>
@@ -162,50 +172,57 @@ export default function PersistentDrawerLeft() {
           </IconButton>
         </div>
         <Divider />
-        <Typography variant="h4">Design your palette</Typography>
-        <div>
-          <Button
-            color="primary"
-            variant="contained"
-            onClick={handleClearPalette}
-          >
-            Clear Pallette
-          </Button>
-          <Button
-            color="secondary"
-            variant="contained"
-            onClick={handleRandomColor}
-            disabled={newPaletteColors.length < 20 ? false : true}
-          >
-            Random Color
-          </Button>
-        </div>
-        <ChromePicker
-          color={pickerColor}
-          onChange={e => setPickerColor(e.hex)}
-        />
-
-        <ValidatorForm onSubmit={handleAddColor}>
-          <TextValidator
-            label="Color Name"
-            value={colorName}
-            onChange={e => setColorName(e.target.value)}
-            validators={["required"]}
-            errorMessages={["this field is required"]}
-            fullWidth
+        <Wrapper>
+          <Typography variant="h4" className={classes.headerTitle}>
+            Design your palette
+          </Typography>
+          <div className={classes.buttonRow}>
+            <Button
+              color="primary"
+              variant="contained"
+              onClick={handleClearPalette}
+              style={{ marginRight: ".5em" }}
+            >
+              Clear Pallette
+            </Button>
+            <Button
+              color="secondary"
+              variant="contained"
+              onClick={handleRandomColor}
+              disabled={newPaletteColors.length < 20 ? false : true}
+            >
+              Random Color
+            </Button>
+          </div>
+          <ChromePicker
+            color={pickerColor}
+            onChange={e => setPickerColor(e.hex)}
+            width="100%"
+            style={{ margin: "0 auto" }}
           />
-          <Button
-            variant="contained"
-            color="primary"
-            type="submit"
-            onClick={handleAddColor}
-            style={{ backgroundColor: pickerColor }}
-            disabled={newPaletteColors.length < 20 ? false : true}
-            fullWidth
-          >
-            {newPaletteColors.length < 20 ? "Add To Palette" : "Palette Full"}
-          </Button>
-        </ValidatorForm>
+          <ValidatorForm onSubmit={handleAddColor}>
+            <TextValidator
+              label="Color Name"
+              value={colorName}
+              onChange={e => setColorName(e.target.value)}
+              validators={["required"]}
+              errorMessages={["this field is required"]}
+              fullWidth
+            />
+            <Button
+              variant="contained"
+              color="primary"
+              type="submit"
+              onClick={handleAddColor}
+              style={{ backgroundColor: pickerColor }}
+              disabled={newPaletteColors.length < 20 ? false : true}
+              fullWidth
+            >
+              Add
+              {newPaletteColors.length < 20 ? "Add To Palette" : "Palette Full"}
+            </Button>
+          </ValidatorForm>
+        </Wrapper>
       </Drawer>
       <main
         className={clsx(classes.content, {
@@ -214,7 +231,13 @@ export default function PersistentDrawerLeft() {
       >
         <div className={classes.drawerHeader} />
         {newPaletteColors.map(color => {
-          return <DraggableColorBox color={color.hex} name={color.name} />;
+          return (
+            <DraggableColorBox
+              color={color.hex}
+              name={color.name}
+              key={color.hex}
+            />
+          );
         })}
       </main>
     </div>
