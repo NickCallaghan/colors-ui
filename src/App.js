@@ -35,7 +35,11 @@ export default function App() {
         exact
         path={`/palette/new`}
         render={routeProps => (
-          <NewPaletteForm {...routeProps} addPalette={addPalette} />
+          <NewPaletteForm
+            {...routeProps}
+            palettes={palettes}
+            addPalette={addPalette}
+          />
         )}
       />
       <Route

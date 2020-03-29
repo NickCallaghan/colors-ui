@@ -1,5 +1,5 @@
 // 3rd Party Components ---------------------------------------//
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import clsx from "clsx";
 import { useTheme } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
@@ -35,6 +35,7 @@ export default function PersistentDrawerLeft(props) {
   const [open, setOpen] = React.useState(true);
   const [pickerColor, setPickerColor] = React.useState("#CC25E0");
   const [colorName, setColorName, resetColorName] = useInputState();
+  const [newPaletteName, setNewPaletteName] = useState("");
   const newPaletteColors = useContext(NewPaletteContext);
   const dispatch = useContext(DispatchContext);
 
@@ -64,17 +65,18 @@ export default function PersistentDrawerLeft(props) {
   };
 
   const handleSavePalette = () => {
-    const addPalette = props.addPalette;
-    const newPaletteName = "Test-Palette";
-    const newPalette = {
-      paletteName: "Test",
-      id: newPaletteName.toLocaleLowerCase().replace(/ /g, "-"),
-      emoji: "👩‍🦳",
-      colors: [...newPaletteColors]
-    };
-    addPalette(newPalette);
-    dispatch({ type: "CLEAR" });
-    props.history.push("/");
+    if (newPaletteName) {
+      const addPalette = props.addPalette;
+      const newPalette = {
+        paletteName: newPaletteName,
+        id: newPaletteName.toLocaleLowerCase().replace(/ /g, "-"),
+        emoji: "👩‍🦳",
+        colors: [...newPaletteColors]
+      };
+      addPalette(newPalette);
+      dispatch({ type: "CLEAR" });
+      props.history.push("/");
+    }
   };
 
   useEffect(() => {
@@ -119,13 +121,20 @@ export default function PersistentDrawerLeft(props) {
           <Typography variant="h6" className={classes.sidebarHeading} noWrap>
             Create a new palette
           </Typography>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleSavePalette}
-          >
-            Save Palette
-          </Button>
+
+          <ValidatorForm onSubmit={handleSavePalette}>
+            <TextValidator
+              label="Palette Name"
+              value={newPaletteName}
+              onChange={e => setNewPaletteName(e.target.value)}
+              validators={["required"]}
+              errorMessages={["this field is required"]}
+              fullWidth
+            />
+            <Button variant="contained" color="primary" type="submit">
+              Save Palette
+            </Button>
+          </ValidatorForm>
         </Toolbar>
       </AppBar>
       <Drawer

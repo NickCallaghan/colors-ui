@@ -35,24 +35,11 @@
 import React, { createContext } from "react";
 import useNewPalette from "../hooks/useNewPalette";
 
-const defaultColors = [
-  {
-    id: 1,
-    name: "Hot Pink",
-    color: "#D20AE4"
-  },
-  {
-    id: 2,
-    name: "Squashed Frog",
-    color: "#20B91C"
-  }
-];
-
 export const NewPaletteContext = createContext();
 export const DispatchContext = createContext();
 
 export default function NewPaletteProvider(props) {
-  const { newPaletteColors, dispatch } = useNewPalette(defaultColors);
+  const { newPaletteColors, dispatch } = useNewPalette([]);
 
   return (
     <NewPaletteContext.Provider value={newPaletteColors}>
