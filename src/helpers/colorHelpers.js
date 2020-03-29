@@ -96,7 +96,7 @@ function randomColor() {
   return {
     id: uuid(),
     name: `${randomChoice(adjectives)} ${randomChoice(nouns)}`,
-    hex: colorParts.join("")
+    color: colorParts.join("")
   };
 }
 

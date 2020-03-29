@@ -39,12 +39,12 @@ const defaultColors = [
   {
     id: 1,
     name: "Hot Pink",
-    hex: "#D20AE4"
+    color: "#D20AE4"
   },
   {
     id: 2,
     name: "Squashed Frog",
-    hex: "#20B91C"
+    color: "#20B91C"
   }
 ];
 

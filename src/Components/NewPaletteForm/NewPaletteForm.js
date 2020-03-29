@@ -59,19 +59,22 @@ export default function PersistentDrawerLeft(props) {
 
   const handleRandomColor = () => {
     const color = randomColor();
-    dispatch({ type: "ADD", hex: color.hex, name: color.name });
+    console.log(color);
+    dispatch({ type: "ADD", color: color.color, name: color.name });
   };
 
   const handleSavePalette = () => {
     const addPalette = props.addPalette;
-    console.log(props);
+    const newPaletteName = "Test-Palette";
     const newPalette = {
       paletteName: "Test",
-      id: "Test",
+      id: newPaletteName.toLocaleLowerCase().replace(/ /g, "-"),
       emoji: "👩‍🦳",
       colors: [...newPaletteColors]
     };
     addPalette(newPalette);
+    dispatch({ type: "CLEAR" });
+    props.history.push("/");
   };
 
   useEffect(() => {
@@ -209,9 +212,9 @@ export default function PersistentDrawerLeft(props) {
         {newPaletteColors.map(color => {
           return (
             <DraggableColorBox
-              color={color.hex}
+              color={color.color}
               name={color.name}
-              key={color.hex}
+              key={color.color}
             />
           );
         })}
