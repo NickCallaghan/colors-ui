@@ -65,22 +65,19 @@ export default function PersistentDrawerLeft() {
   useEffect(() => {
     //Add a validator rule to check color name is unique
     ValidatorForm.addValidationRule("isUniqueColorName", value => {
-      let isValid = true;
+      let isValid;
       isValid = newPaletteColors.every(
         ({ name }) => name.toLowerCase() !== value.toLowerCase()
       );
       return isValid;
     });
     // Add validator rule to ensure the color is unique
-    // ValidatorForm.addValidationRule("isUniqueColor", value => {
-    //   let isValid = true;
-    //   isValid = newPaletteColors.every(({ hex }) => {
-    //     console.log(pickerColor);
-    //     return hex !== pickerColor;
-    //   });
-    //   return isValid;
-    // });
-  }, []);
+    ValidatorForm.addValidationRule("isUniqueColor", () => {
+      let isValid;
+      isValid = newPaletteColors.every(({ hex }) => hex !== pickerColor);
+      return isValid;
+    });
+  }, [newPaletteColors]);
 
   return (
     <div className={classes.root}>
