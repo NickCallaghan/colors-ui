@@ -1,5 +1,4 @@
 import { v4 as uuid } from "uuid";
-import faker from "faker";
 
 // Gather shades takes a colorId and a palette and gets all shades of the colorId and the different brightness levels within the palette
 function gatherShades(colorId, palette) {
