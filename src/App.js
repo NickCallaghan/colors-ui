@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import Palette from "./Components/Palette/Palette";
 import seedColors from "./seedColors";
 import { generatePalette } from "./colorHelper";
@@ -7,63 +7,63 @@ import PaletteList from "./Components/PaletteList/PaletteList";
 import SingleColorPage from "./Components/SingleColorPage/SingleColorPage";
 import NewPaletteForm from "./Components/NewPaletteForm/NewPaletteForm";
 
-export default class App extends Component {
-  state = {
-    palettes: [...seedColors],
-    format: "hex"
-  };
+export default function App() {
+  const [palettes, setPalettes] = useState([...seedColors]);
+  const [format, setFormat] = useState("hex");
 
-  findPalette = id => {
-    const thisPalette = this.state.palettes.find(p => p.id === id);
+  const findPalette = id => {
+    const thisPalette = palettes.find(p => p.id === id);
     return generatePalette(thisPalette);
   };
 
-  updateFormat = format => {
-    this.setState({ format });
+  const updateFormat = format => {
+    setFormat(format);
   };
 
-  render() {
-    const routes = (
-      <Switch>
-        <Route
-          exact
-          path={`/`}
-          render={routeProps => (
-            <PaletteList palettes={this.state.palettes} {...routeProps} />
-          )}
-        />
-        <Route
-          exact
-          path={`/palette/new`}
-          render={routeProps => <NewPaletteForm {...routeProps} />}
-        />
-        <Route
-          exact
-          path={`/palette/:id`}
-          render={routeProps => (
-            <Palette
-              palette={this.findPalette(routeProps.match.params.id)}
-              format={this.state.format}
-              updateFormat={this.updateFormat}
-            />
-          )}
-        />
-        <Route
-          exact
-          path={`/palette/:paletteId/:colorId`}
-          render={routeProps => (
-            <SingleColorPage
-              {...routeProps}
-              palette={this.findPalette(routeProps.match.params.paletteId)}
-              format={this.state.format}
-              updateFormat={this.updateFormat}
-            />
-          )}
-        />
-        <Route render={() => <h1>Sorry Not Found</h1>} />
-      </Switch>
-    );
+  const addPalette = newPalette => setPalettes([...palettes, newPalette]);
 
-    return <div className="App">{routes}</div>;
-  }
+  const routes = (
+    <Switch>
+      <Route
+        exact
+        path={`/`}
+        render={routeProps => (
+          <PaletteList palettes={palettes} {...routeProps} />
+        )}
+      />
+      <Route
+        exact
+        path={`/palette/new`}
+        render={routeProps => (
+          <NewPaletteForm {...routeProps} addPalette={addPalette} />
+        )}
+      />
+      <Route
+        exact
+        path={`/palette/:id`}
+        render={routeProps => (
+          <Palette
+            palette={findPalette(routeProps.match.params.id)}
+            format={format}
+            updateFormat={updateFormat}
+          />
+        )}
+      />
+      <Route
+        exact
+        path={`/palette/:paletteId/:colorId`}
+        render={routeProps => (
+          <SingleColorPage
+            {...routeProps}
+            palette={findPalette(routeProps.match.params.paletteId)}
+            format={format}
+            updateFormat={updateFormat}
+          />
+        )}
+      />
+      <Route render={() => <h1>Sorry Not Found</h1>} />
+    </Switch>
+  );
+
+  return <div className="App">{routes}</div>;
 }
