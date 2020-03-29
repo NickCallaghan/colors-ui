@@ -28,7 +28,7 @@ import {
 import { randomColor } from "../../helpers/colorHelpers";
 import useStyles from "./newPaletteStyles";
 
-export default function PersistentDrawerLeft() {
+export default function PersistentDrawerLeft(props) {
   const classes = useStyles();
   const theme = useTheme();
 
@@ -62,6 +62,18 @@ export default function PersistentDrawerLeft() {
     dispatch({ type: "ADD", hex: color.hex, name: color.name });
   };
 
+  const handleSavePalette = () => {
+    const addPalette = props.addPalette;
+    console.log(props);
+    const newPalette = {
+      paletteName: "Test",
+      id: "Test",
+      emoji: "👩‍🦳",
+      colors: [...newPaletteColors]
+    };
+    addPalette(newPalette);
+  };
+
   useEffect(() => {
     //Add a validator rule to check color name is unique
     ValidatorForm.addValidationRule("isUniqueColorName", value => {
@@ -87,6 +99,7 @@ export default function PersistentDrawerLeft() {
         className={clsx(classes.appBar, {
           [classes.appBarShift]: open
         })}
+        color="default"
       >
         <Toolbar>
           <Fab
@@ -103,6 +116,13 @@ export default function PersistentDrawerLeft() {
           <Typography variant="h6" className={classes.sidebarHeading} noWrap>
             Create a new palette
           </Typography>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleSavePalette}
+          >
+            Save Palette
+          </Button>
         </Toolbar>
       </AppBar>
       <Drawer
