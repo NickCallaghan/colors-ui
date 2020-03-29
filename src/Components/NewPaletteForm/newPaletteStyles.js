@@ -1,5 +1,5 @@
 import { makeStyles } from "@material-ui/core/styles";
-const drawerWidth = 340;
+const drawerWidth = 350;
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -36,12 +36,14 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     alignItems: "center",
     padding: theme.spacing(0, 1),
+    // necessary for content to be below app bar
     ...theme.mixins.toolbar,
     justifyContent: "flex-end"
   },
   content: {
     flexGrow: 1,
-    padding: theme.spacing(3),
+    height: "100vh",
+    padding: 0,
     transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen
@@ -54,6 +56,15 @@ const useStyles = makeStyles(theme => ({
       duration: theme.transitions.duration.enteringScreen
     }),
     marginLeft: 0
+  },
+  headerTitle: {
+    marginTop: "0.5em"
+  },
+  buttonRow: {
+    margin: "1em 0 1em 0 "
+  },
+  addButton: {
+    marginTop: "1em"
   }
 }));
 
