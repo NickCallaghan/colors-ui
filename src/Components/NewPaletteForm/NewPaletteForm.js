@@ -11,12 +11,11 @@ import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-
+import AddIcon from "@material-ui/icons/Add";
 import Button from "@material-ui/core/Button";
 import Fab from "@material-ui/core/Fab";
 import { ChromePicker } from "react-color";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
-import AddIcon from "@material-ui/icons/Add";
 
 // Custom Components & Hooks ----------------------------------//
 import Wrapper from "../Wrapper/Wrapper";
@@ -29,7 +28,7 @@ import {
 import { randomColor } from "../../helpers/colorHelpers";
 import useStyles from "./newPaletteStyles";
 
-export default function PersistentDrawerLeft(props) {
+export default function NewPalette(props) {
   const classes = useStyles();
   const theme = useTheme();
 
@@ -95,7 +94,23 @@ export default function PersistentDrawerLeft(props) {
       isValid = newPaletteColors.every(({ hex }) => hex !== pickerColor);
       return isValid;
     });
-  }, [newPaletteColors]);
+  }, [newPaletteColors, pickerColor]);
+
+  useEffect(() => {
+    //Validators goes here
+    const { palettes } = props;
+    ValidatorForm.addValidationRule(
+      "isPaletteNameUnique",
+      value => {
+        let isUnique;
+        isUnique = palettes.every(
+          ({ paletteName }) => paletteName.toLowerCase() !== value.toLowerCase()
+        );
+        return isUnique;
+      },
+      [newPaletteName, props]
+    );
+  });
 
   return (
     <div className={classes.root}>
@@ -124,17 +139,22 @@ export default function PersistentDrawerLeft(props) {
           </Typography>
 
           <ValidatorForm onSubmit={handleSavePalette}>
-            <TextValidator
-              label="Palette Name"
-              value={newPaletteName}
-              onChange={e => setNewPaletteName(e.target.value)}
-              validators={["required"]}
-              errorMessages={["this field is required"]}
-              fullWidth
-            />
-            <Button variant="contained" color="primary" type="submit">
-              Save Palette
-            </Button>
+            <div style={{ display: "flex" }}>
+              <TextValidator
+                label="Palette Name"
+                value={newPaletteName}
+                onChange={e => setNewPaletteName(e.target.value)}
+                validators={["required", "isPaletteNameUnique"]}
+                errorMessages={[
+                  "this field is required",
+                  "Palette name already exists"
+                ]}
+                fullWidth
+              />
+              <Button variant="contained" color="primary" type="submit">
+                Save Palette
+              </Button>
+            </div>
           </ValidatorForm>
         </Toolbar>
       </AppBar>
@@ -157,8 +177,6 @@ export default function PersistentDrawerLeft(props) {
           </IconButton>
         </div>
         <Divider />
-
-        <ChromePicker color="#194d33" />
 
         <Wrapper>
           <Typography variant="h4" className={classes.headerTitle}>
