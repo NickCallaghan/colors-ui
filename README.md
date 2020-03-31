@@ -1,4 +1,7 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+#Color UI
+Color UI allows you to view and create color palettes.
+
+[A demo is available](https://nickcallaghan.github.io/colors-ui/)
 
 ## Available Scripts
 
