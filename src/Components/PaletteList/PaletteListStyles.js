@@ -5,7 +5,7 @@ export default {
     backgroundColor: "#131b70",
     backgroundImage: backgroundImage,
     backgroundAttachment: "fixed",
-    height: "100vh",
+    minHeight: "130vh",
     display: "flex",
     alignItems: "flex-start",
     justifyContent: "center"
