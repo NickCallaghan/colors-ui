@@ -49,7 +49,7 @@ export default function NewPalette(props) {
 
   const handleAddColor = () => {
     if (colorName) {
-      dispatch({ type: "ADD", hex: pickerColor, name: colorName });
+      dispatch({ type: "ADD", color: pickerColor, name: colorName });
       resetColorName();
     }
   };

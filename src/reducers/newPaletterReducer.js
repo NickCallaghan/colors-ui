@@ -7,6 +7,9 @@ const newPaletteReducer = (state, action) => {
         ...state,
         { id: uuidv4(), name: action.name, color: action.color }
       ];
+    case "REMOVE":
+      const newState = state.filter(color => color.color !== action.color);
+      return newState;
     case "CLEAR":
       return [];
     default:

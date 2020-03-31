@@ -1,4 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
+import IconButton from "@material-ui/core/IconButton";
+import DeleteIcon from "@material-ui/icons/Delete";
+import { DispatchContext } from "../../contexts/newPaletteContext";
+
 import { withStyles } from "@material-ui/styles";
 
 const styles = {
@@ -15,10 +19,21 @@ const styles = {
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center"
+  },
+  deleteIcon: {
+    position: "absolute",
+    bottom: "0.2em",
+    right: "0.2em"
   }
 };
 
 function DraggableColorBox(props) {
+  const dispatch = useContext(DispatchContext);
+
+  const handleDelete = () => {
+    console.log(`Deleting color ${props.color}`);
+    dispatch({ type: "REMOVE", color: props.color });
+  };
   return (
     <div
       className={props.classes.root}
@@ -27,6 +42,9 @@ function DraggableColorBox(props) {
       <div className={props.classes.wrapper}>
         <p>{props.color}</p>
         <p>{props.name}</p>
+        <IconButton onClick={handleDelete} className={props.classes.deleteIcon}>
+          <DeleteIcon />
+        </IconButton>
       </div>
     </div>
   );
