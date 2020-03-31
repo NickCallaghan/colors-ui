@@ -10,6 +10,8 @@ const newPaletteReducer = (state, action) => {
     case "REMOVE":
       const newState = state.filter(color => color.color !== action.color);
       return newState;
+    case "SORT":
+      return action.newOrder;
     case "CLEAR":
       return [];
     default:

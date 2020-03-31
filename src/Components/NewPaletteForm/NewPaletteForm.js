@@ -16,10 +16,12 @@ import Button from "@material-ui/core/Button";
 import Fab from "@material-ui/core/Fab";
 import { ChromePicker } from "react-color";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
+import DraggableGrid from "../DraggableGrid/DraggableGrid";
+import arrayMove from "array-move";
 
 // Custom Components & Hooks ----------------------------------//
 import Wrapper from "../Wrapper/Wrapper";
-import DraggableColorBox from "../DraggableColorBox/DraggableColorBox";
+
 import useInputState from "../../hooks/useInputState";
 import {
   NewPaletteContext,
@@ -77,6 +79,11 @@ export default function NewPalette(props) {
       dispatch({ type: "CLEAR" });
       props.history.push("/");
     }
+  };
+
+  const handleSortEnd = ({ oldIndex, newIndex }) => {
+    const newOrder = arrayMove(newPaletteColors, oldIndex, newIndex);
+    dispatch({ type: "SORT", newOrder });
   };
 
   useEffect(() => {
@@ -239,15 +246,8 @@ export default function NewPalette(props) {
         })}
       >
         <div className={classes.drawerHeader} />
-        {newPaletteColors.map(color => {
-          return (
-            <DraggableColorBox
-              color={color.color}
-              name={color.name}
-              key={color.color}
-            />
-          );
-        })}
+
+        <DraggableGrid onSortEnd={handleSortEnd} axis="xy" />
       </main>
     </div>
   );

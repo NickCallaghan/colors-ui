@@ -1,6 +1,8 @@
 import React, { useContext } from "react";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
+import { SortableElement } from "react-sortable-hoc";
+
 import { DispatchContext } from "../../contexts/newPaletteContext";
 
 import { withStyles } from "@material-ui/styles";
@@ -50,4 +52,4 @@ function DraggableColorBox(props) {
   );
 }
 
-export default withStyles(styles)(DraggableColorBox);
+export default SortableElement(withStyles(styles)(DraggableColorBox));
