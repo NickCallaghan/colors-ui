@@ -11,6 +11,7 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import { ChromePicker } from "react-color";
 
 const drawerWidth = 240;
 
@@ -126,6 +127,7 @@ export default function NewPaletteForm() {
           </IconButton>
         </div>
         <Divider />
+        <ChromePicker color="#194d33" />
       </Drawer>
     </div>
   );
