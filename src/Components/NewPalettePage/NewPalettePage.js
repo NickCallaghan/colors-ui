@@ -1,4 +1,4 @@
-// 3rd Party Components ---------------------------------------//
+// 3rd Party components ---------------------------------------//
 import React, { useContext, useEffect, useState } from "react";
 import clsx from "clsx";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -11,7 +11,7 @@ import Fab from "@material-ui/core/Fab";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import arrayMove from "array-move";
 
-// Custom Components & Hooks ----------------------------------//
+// Custom components & Hooks ----------------------------------//
 import {
   NewPaletteContext,
   DispatchContext
