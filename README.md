@@ -1,4 +1,5 @@
-#Color UI
+# Color UI
+
 Color UI allows you to view and create color palettes.
 
 [A demo is available](https://nickcallaghan.github.io/colors-ui/)
