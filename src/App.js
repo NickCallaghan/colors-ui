@@ -5,7 +5,7 @@ import { generatePalette } from "./colorHelper";
 import { Route, Switch } from "react-router-dom";
 import PaletteList from "./Components/PaletteList/PaletteList";
 import SingleColorPage from "./Components/SingleColorPage/SingleColorPage";
-import NewPaletteForm from "./Components/NewPaletteForm/NewPaletteForm";
+import NewPalettePage from "./Components/NewPalettePage/NewPalettePage";
 
 export default function App() {
   const [palettes, setPalettes] = useState([...seedColors]);
@@ -35,7 +35,7 @@ export default function App() {
         exact
         path={`/palette/new`}
         render={routeProps => (
-          <NewPaletteForm
+          <NewPalettePage
             {...routeProps}
             palettes={palettes}
             addPalette={addPalette}
