@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, memo } from "react";
 import { SortableContainer } from "react-sortable-hoc";
 
 import { NewPaletteContext } from "../../contexts/newPaletteContext";
@@ -23,4 +23,5 @@ function DraggableGrid() {
   );
 }
 
-export default SortableContainer(DraggableGrid);
+// export default DraggableGrid;
+export default memo(SortableContainer(DraggableGrid));

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, memo } from "react";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { SortableElement } from "react-sortable-hoc";
@@ -33,6 +33,7 @@ function DraggableColorBox(props) {
   const dispatch = useContext(DispatchContext);
 
   const handleDelete = () => {
+    console.log("Handle Delete");
     console.log(`Deleting color ${props.color}`);
     dispatch({ type: "REMOVE", color: props.color });
   };
@@ -52,4 +53,5 @@ function DraggableColorBox(props) {
   );
 }
 
-export default SortableElement(withStyles(styles)(DraggableColorBox));
+// export default withStyles(styles)(DraggableColorBox);
+export default memo(SortableElement(withStyles(styles)(DraggableColorBox)));

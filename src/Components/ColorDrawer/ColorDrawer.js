@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, memo } from "react";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
@@ -16,7 +16,7 @@ import { NewPaletteContext } from "../../contexts/newPaletteContext";
 import { DispatchContext } from "../../contexts/newPaletteContext";
 import useStyles from "./ColorDrawerStyles";
 
-export default function ColorDrawer(props) {
+function ColorDrawer(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [pickerColor, setPickerColor] = React.useState("#CC25E0");
@@ -140,3 +140,5 @@ export default function ColorDrawer(props) {
     </Drawer>
   );
 }
+
+export default memo(ColorDrawer);

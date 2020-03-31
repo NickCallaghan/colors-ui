@@ -1,5 +1,5 @@
 // 3rd Party components ---------------------------------------//
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import clsx from "clsx";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import AppBar from "@material-ui/core/AppBar";
@@ -8,7 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import AddIcon from "@material-ui/icons/Add";
 import Button from "@material-ui/core/Button";
 import Fab from "@material-ui/core/Fab";
-import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
+import Picker from "emoji-picker-react";
 import arrayMove from "array-move";
 
 // Custom components & Hooks ----------------------------------//
@@ -19,6 +19,7 @@ import {
 import useStyles from "./newPaletteStyles";
 import DraggableGrid from "../DraggableGrid/DraggableGrid";
 import ColorDrawer from "../ColorDrawer/ColorDrawer";
+import SaveDialog from "../SaveDialog/SaveDialog";
 
 export default function NewPalettePage(props) {
   const classes = useStyles();
@@ -29,7 +30,6 @@ export default function NewPalettePage(props) {
   const [emojiPickerOpen, setEmojiPickerOpen] = useState(false);
 
   //State for this palette
-  const [newPaletteName, setNewPaletteName] = useState("");
   const newPaletteColors = useContext(NewPaletteContext);
   const dispatch = useContext(DispatchContext);
 
@@ -38,40 +38,25 @@ export default function NewPalettePage(props) {
   };
 
   const handleSavePalette = () => {
-    if (newPaletteName) {
-      const addPalette = props.addPalette;
-      const newPalette = {
-        paletteName: newPaletteName,
-        id: newPaletteName.toLocaleLowerCase().replace(/ /g, "-"),
-        emoji: "👩‍🦳",
-        colors: [...newPaletteColors]
-      };
-      addPalette(newPalette);
-      dispatch({ type: "CLEAR" });
-      props.history.push("/");
-    }
+    setDialogOpen(true);
+    // if (newPaletteName) {
+    //   const addPalette = props.addPalette;
+    //   const newPalette = {
+    //     paletteName: newPaletteName,
+    //     id: newPaletteName.toLocaleLowerCase().replace(/ /g, "-"),
+    //     emoji: "👩‍🦳",
+    //     colors: [...newPaletteColors]
+    //   };
+    //   addPalette(newPalette);
+    //   dispatch({ type: "CLEAR" });
+    //   props.history.push("/");
+    // }
   };
 
   const handleSortEnd = ({ oldIndex, newIndex }) => {
     const newOrder = arrayMove(newPaletteColors, oldIndex, newIndex);
     dispatch({ type: "SORT", newOrder });
   };
-
-  useEffect(() => {
-    //Validators goes here
-    const { palettes } = props;
-    ValidatorForm.addValidationRule(
-      "isPaletteNameUnique",
-      value => {
-        let isUnique;
-        isUnique = palettes.every(
-          ({ paletteName }) => paletteName.toLowerCase() !== value.toLowerCase()
-        );
-        return isUnique;
-      },
-      [newPaletteName, props]
-    );
-  });
 
   return (
     <div className={classes.root}>
@@ -99,24 +84,13 @@ export default function NewPalettePage(props) {
             Create a new palette
           </Typography>
 
-          <ValidatorForm onSubmit={handleSavePalette}>
-            <div style={{ display: "flex" }}>
-              <TextValidator
-                label="Palette Name"
-                value={newPaletteName}
-                onChange={e => setNewPaletteName(e.target.value)}
-                validators={["required", "isPaletteNameUnique"]}
-                errorMessages={[
-                  "this field is required",
-                  "Palette name already exists"
-                ]}
-                fullWidth
-              />
-              <Button variant="contained" color="primary" type="submit">
-                Save Palette
-              </Button>
-            </div>
-          </ValidatorForm>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleSavePalette}
+          >
+            Save Palette
+          </Button>
         </Toolbar>
       </AppBar>
 
@@ -128,8 +102,14 @@ export default function NewPalettePage(props) {
         })}
       >
         <div className={classes.drawerHeader} />
+        <SaveDialog
+          dialogOpen={dialogOpen}
+          setDialogOpen={setDialogOpen}
+          showEmojiPicker={setEmojiPickerOpen}
+          palettes={props.palettes}
+        />
 
-        <DraggableGrid onSortEnd={handleSortEnd} axis="xy" />
+        <DraggableGrid onSortEnd={handleSortEnd} axis="xy" distance={1} />
       </main>
     </div>
   );
