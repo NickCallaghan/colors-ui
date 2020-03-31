@@ -225,7 +225,6 @@ export default function NewPalette(props) {
               color="primary"
               type="submit"
               onClick={handleAddColor}
-              style={{ backgroundColor: pickerColor }}
               disabled={newPaletteColors.length < 20 ? false : true}
               fullWidth
             >
