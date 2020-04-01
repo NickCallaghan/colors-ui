@@ -91,16 +91,16 @@ function ColorDrawer(props) {
         </Typography>
         <div className={classes.buttonRow}>
           <Button
-            color="primary"
-            variant="contained"
+            color="default"
+            // variant="contained"
             onClick={handleClearPalette}
             style={{ marginRight: ".5em" }}
           >
             Clear Pallette
           </Button>
           <Button
-            color="secondary"
-            variant="contained"
+            color="default"
+            // variant="contained"
             onClick={handleRandomColor}
             disabled={colors.length < 20 ? false : true}
           >
