@@ -18,7 +18,7 @@ import {
 } from "../../contexts/newPaletteContext";
 import useStyles from "./newPaletteStyles";
 import DraggableGrid from "../DraggableGrid/DraggableGrid";
-import PaletteMetaForm from "../ColorDrawer/PaletteMetaForm/PaletteMetaForm";
+import PaletteMetaForm from "../PaletteMetaForm/PaletteMetaForm";
 import ColorDrawer from "../ColorDrawer/ColorDrawer";
 
 export default function NewPalettePage(props) {

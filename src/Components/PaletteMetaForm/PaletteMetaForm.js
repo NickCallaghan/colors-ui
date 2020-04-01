@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Picker from "emoji-picker-react";
-import PaletteNameForm from "../PaletteName/PaletteNameForm";
+import { Picker } from "emoji-mart";
+import PaletteNameForm from "../PaletteNameForm/PaletteNameForm";
 
 export default function PaletteMetaForm(props) {
   const [paletteNameOpen, setPaletteNameOpen] = useState(true);
