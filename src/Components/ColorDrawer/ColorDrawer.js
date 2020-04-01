@@ -41,7 +41,8 @@ function ColorDrawer(props) {
   };
 
   const handleRandomColor = () => {
-    const color = randomColor();
+    const { palettes } = props;
+    const color = randomColor(palettes);
     dispatch({ type: "ADD", color: color.color, name: color.name });
   };
 

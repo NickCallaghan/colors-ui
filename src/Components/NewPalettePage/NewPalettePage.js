@@ -28,9 +28,11 @@ export default function NewPalettePage(props) {
   const [drawerOpen, setDrawerOpen] = React.useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [emojiPickerOpen, setEmojiPickerOpen] = useState(false);
+  const { palettes } = props;
 
   //State for this palette
   const newPaletteColors = useContext(NewPaletteContext);
+
   const dispatch = useContext(DispatchContext);
 
   const handleDrawerOpen = () => {
@@ -94,7 +96,11 @@ export default function NewPalettePage(props) {
         </Toolbar>
       </AppBar>
 
-      <ColorDrawer open={drawerOpen} toggle={setDrawerOpen} />
+      <ColorDrawer
+        open={drawerOpen}
+        toggle={setDrawerOpen}
+        palettes={palettes}
+      />
 
       <main
         className={clsx(classes.content, {

@@ -23,81 +23,15 @@ function randomChoice(arr) {
 }
 export { randomChoice };
 
-const adjectives = [
-  "rapid",
-  "productive",
-  "quarrelsome",
-  "shrill",
-  "capricious",
-  "blue",
-  "delicate",
-  "rude",
-  "three",
-  "ethereal",
-  "right",
-  "unequal",
-  "extra - small",
-  "thin",
-  "delirious",
-  "paltry",
-  "successfully",
-  "momentous",
-  "loud",
-  "kaput"
-];
-
-const nouns = [
-  "opportunity",
-  "penalty",
-  "data",
-  "setting",
-  "week",
-  "union",
-  "nation",
-  "dealer",
-  "virus",
-  "grocery",
-  "freedom",
-  "boyfriend",
-  "storage",
-  "cousin",
-  "meat",
-  "combination",
-  "shopping",
-  "accident",
-  "physics",
-  "owner"
-];
-
 // Get a random color object
-function randomColor() {
-  const colorParts = ["#"];
-  const base16Chars = [
-    0,
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    9,
-    "A",
-    "B",
-    "C",
-    "D",
-    "E",
-    "F"
-  ];
-  for (let i = 0; i < 6; i++) {
-    colorParts.push(randomChoice(base16Chars));
-  }
-  return {
-    id: uuid(),
-    name: `${randomChoice(adjectives)} ${randomChoice(nouns)}`,
-    color: colorParts.join("")
-  };
+function randomColor(palettes) {
+  //Get all colors from the palettes and retrun a single array with all colors;
+  const allColors = [];
+  palettes.forEach(palette => {
+    palette.colors.forEach(color => {
+      allColors.push(color);
+    });
+  });
+  return randomChoice(allColors);
 }
-
 export { randomColor };
