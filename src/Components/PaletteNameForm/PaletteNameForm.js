@@ -13,7 +13,7 @@ import {
 } from "../../contexts/newPaletteContext";
 
 export default function PaletteNameForm(props) {
-  const { open, toggle, palettes } = props;
+  const { open, toggle } = props;
   const newPalette = useContext(NewPaletteContext);
   const { newPaletteName } = newPalette;
   const dispatch = useContext(DispatchContext);
@@ -30,9 +30,11 @@ export default function PaletteNameForm(props) {
     }
   };
 
-  // useEffect(() => {
-  //   toggle();
-  // });
+  useEffect(() => {
+    if (newPalette.paletteName !== null) {
+      props.savePalette();
+    }
+  }, [newPalette]);
 
   useEffect(() => {
     //Validators goes here

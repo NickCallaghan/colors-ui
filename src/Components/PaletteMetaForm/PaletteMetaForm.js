@@ -16,6 +16,7 @@ export default function PaletteMetaForm(props) {
         open={paletteNameOpen}
         toggle={() => toggle(paletteNameOpen, setPaletteNameOpen)}
         palettes={props.palettes}
+        savePalette={props.savePalette}
       />
     </div>
   );

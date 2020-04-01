@@ -1,5 +1,5 @@
 // 3rd Party components ---------------------------------------//
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect, useCallback } from "react";
 import clsx from "clsx";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import AppBar from "@material-ui/core/AppBar";
@@ -40,13 +40,28 @@ export default function NewPalettePage(props) {
   };
 
   const handleSavePalette = () => {
-    setShowMetaForm(true);
+    if (
+      newPalette.paletteName &&
+      newPalette.emoji &&
+      newPalette.colors.length > 0
+    ) {
+      props.addPalette(newPalette);
+      props.history.push("/");
+      dispatch({ type: "RESET" });
+    }
   };
 
   const handleSortEnd = ({ oldIndex, newIndex }) => {
     const newOrder = arrayMove(colors, oldIndex, newIndex);
     dispatch({ type: "SORT", newOrder });
   };
+
+  // useEffect(() => {
+  //   if (newPalette.name !== null && newPalette.colors > 3) {
+  //     handleSavePalette();
+  //     console.log("Palette Save Ran");
+  //   }
+  // }, [newPalette, handleSavePalette]);
 
   return (
     <div className={classes.root}>
@@ -86,7 +101,7 @@ export default function NewPalettePage(props) {
           <Button
             variant="contained"
             color="primary"
-            onClick={handleSavePalette}
+            onClick={() => setShowMetaForm(true)}
           >
             Save Palette
           </Button>
@@ -109,6 +124,7 @@ export default function NewPalettePage(props) {
           <PaletteMetaForm
             setShowMetaForm={setShowMetaForm}
             palettes={palettes}
+            savePalette={handleSavePalette}
           />
         )}
         <DraggableGrid onSortEnd={handleSortEnd} axis="xy" distance={1} />
