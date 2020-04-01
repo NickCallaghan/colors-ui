@@ -5,10 +5,10 @@ export const NewPaletteContext = createContext();
 export const DispatchContext = createContext();
 
 export default function NewPaletteProvider(props) {
-  const { newPaletteColors, dispatch } = useNewPalette([]);
+  const { newPalette, dispatch } = useNewPalette([]);
 
   return (
-    <NewPaletteContext.Provider value={newPaletteColors}>
+    <NewPaletteContext.Provider value={newPalette}>
       <DispatchContext.Provider value={dispatch}>
         {props.children}
       </DispatchContext.Provider>

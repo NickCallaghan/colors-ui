@@ -6,41 +6,33 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
+
 import {
   NewPaletteContext,
   DispatchContext
 } from "../../contexts/newPaletteContext";
 
-export default function FormDialog(props) {
-  const { dialogOpen, setDialogOpen } = props;
+export default function PaletteNameForm(props) {
+  const { open, toggle, palettes } = props;
   const newPalette = useContext(NewPaletteContext);
+  const { newPaletteName } = newPalette;
   const dispatch = useContext(DispatchContext);
-  const [newPaletteName, setNewPaletteName] = useState(null);
+  const [inputValue, setInputValue] = useState("");
 
   const handleClose = () => {
-    setDialogOpen(false);
+    toggle();
   };
 
-  const handleSavePalette = () => {
-    // if (newPaletteName) {
-    //   const addPalette = props.addPalette;
-    //   const newPalette = {
-    //     paletteName: newPaletteName,
-    //     id: newPaletteName.toLocaleLowerCase().replace(/ /g, "-"),
-    //     emoji: "👩‍🦳",
-    //     colors: [...newPalette.colors]
-    //   };
-    //   addPalette(newPalette);
-    //   dispatch({ type: "CLEAR" });
-    //   props.history.push("/");
-    // }
-
-    // Set Pallette Name
-    // Close dialog
-    setDialogOpen(false);
-    // Open emoji picker
-    props.showEmojiPicker(true);
+  const handleSetPaletteName = () => {
+    if (inputValue) {
+      dispatch({ type: "SETNAME", paletteName: inputValue });
+      toggle();
+    }
   };
+
+  // useEffect(() => {
+  //   toggle();
+  // });
 
   useEffect(() => {
     //Validators goes here
@@ -62,11 +54,11 @@ export default function FormDialog(props) {
   return (
     <div>
       <Dialog
-        open={dialogOpen}
+        open={open}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        <ValidatorForm onSubmit={handleSavePalette}>
+        <ValidatorForm onSubmit={handleSetPaletteName}>
           <DialogTitle id="form-dialog-title">Save New Palette</DialogTitle>
           <DialogContent>
             <DialogContentText>
@@ -75,8 +67,8 @@ export default function FormDialog(props) {
             <div style={{ display: "flex" }}>
               <TextValidator
                 label="Palette Name"
-                value={newPaletteName}
-                onChange={e => setNewPaletteName(e.target.value)}
+                value={inputValue}
+                onChange={e => setInputValue(e.target.value)}
                 validators={["required", "isPaletteNameUnique"]}
                 errorMessages={[
                   "this field is required",
@@ -90,7 +82,7 @@ export default function FormDialog(props) {
             <Button onClick={handleClose} color="primary">
               Cancel
             </Button>
-            <Button onClick={handleSavePalette} color="primary">
+            <Button color="primary" type="submit">
               Save
             </Button>
           </DialogActions>

@@ -5,11 +5,14 @@ import { NewPaletteContext } from "../../contexts/newPaletteContext";
 import DraggableColorBox from "../DraggableColorBox/DraggableColorBox";
 
 function DraggableGrid() {
-  const newPaletteColors = useContext(NewPaletteContext);
+  const newPalette = useContext(NewPaletteContext);
+  console.log(newPalette);
+  const { colors } = newPalette;
+  console.log(colors);
 
   return (
     <div style={{ height: "100%" }}>
-      {newPaletteColors.map((color, i) => {
+      {colors.map((color, i) => {
         return (
           <DraggableColorBox
             index={i}

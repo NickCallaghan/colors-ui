@@ -8,7 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import AddIcon from "@material-ui/icons/Add";
 import Button from "@material-ui/core/Button";
 import Fab from "@material-ui/core/Fab";
-import Picker from "emoji-picker-react";
+
 import arrayMove from "array-move";
 
 // Custom components & Hooks ----------------------------------//
@@ -18,21 +18,21 @@ import {
 } from "../../contexts/newPaletteContext";
 import useStyles from "./newPaletteStyles";
 import DraggableGrid from "../DraggableGrid/DraggableGrid";
+import PaletteMetaForm from "../ColorDrawer/PaletteMetaForm/PaletteMetaForm";
 import ColorDrawer from "../ColorDrawer/ColorDrawer";
-import SaveDialog from "../SaveDialog/SaveDialog";
 
 export default function NewPalettePage(props) {
   const classes = useStyles();
 
   // Form State
-  const [drawerOpen, setDrawerOpen] = React.useState(true);
-  const [dialogOpen, setDialogOpen] = useState(false);
-  const [emojiPickerOpen, setEmojiPickerOpen] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(true);
+  const [showMetaForm, setShowMetaForm] = useState(false);
+
   const { palettes } = props;
 
   //State for this palette
-  const newPaletteColors = useContext(NewPaletteContext);
-
+  const newPalette = useContext(NewPaletteContext);
+  const { colors } = newPalette;
   const dispatch = useContext(DispatchContext);
 
   const handleDrawerOpen = () => {
@@ -40,23 +40,11 @@ export default function NewPalettePage(props) {
   };
 
   const handleSavePalette = () => {
-    setDialogOpen(true);
-    // if (newPaletteName) {
-    //   const addPalette = props.addPalette;
-    //   const newPalette = {
-    //     paletteName: newPaletteName,
-    //     id: newPaletteName.toLocaleLowerCase().replace(/ /g, "-"),
-    //     emoji: "👩‍🦳",
-    //     colors: [...newPaletteColors]
-    //   };
-    //   addPalette(newPalette);
-    //   dispatch({ type: "CLEAR" });
-    //   props.history.push("/");
-    // }
+    setShowMetaForm(true);
   };
 
   const handleSortEnd = ({ oldIndex, newIndex }) => {
-    const newOrder = arrayMove(newPaletteColors, oldIndex, newIndex);
+    const newOrder = arrayMove(colors, oldIndex, newIndex);
     dispatch({ type: "SORT", newOrder });
   };
 
@@ -117,13 +105,12 @@ export default function NewPalettePage(props) {
         })}
       >
         <div className={classes.drawerHeader} />
-        <SaveDialog
-          dialogOpen={dialogOpen}
-          setDialogOpen={setDialogOpen}
-          showEmojiPicker={setEmojiPickerOpen}
-          palettes={props.palettes}
-        />
-
+        {showMetaForm && (
+          <PaletteMetaForm
+            setShowMetaForm={setShowMetaForm}
+            palettes={palettes}
+          />
+        )}
         <DraggableGrid onSortEnd={handleSortEnd} axis="xy" distance={1} />
       </main>
     </div>

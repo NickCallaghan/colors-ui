@@ -4,22 +4,30 @@ const newPaletteReducer = (state, action) => {
   let newState;
   switch (action.type) {
     case "ADD":
-      return [
+      return {
         ...state,
-        { id: uuidv4(), name: action.name, color: action.color }
-      ];
+        colors: [
+          ...state.colors,
+          { id: uuidv4(), name: action.name, color: action.color }
+        ]
+      };
     case "REMOVE":
       console.log(`Removing ${action.color}`);
-      newState = state.filter(color => color.color !== action.color);
-      return newState;
+      return {
+        ...state,
+        colors: state.colors.filter(color => color.color !== action.color)
+      };
     case "SORT":
-      return action.newOrder;
+      return { ...state, colors: action.newOrder };
     case "SETNAME":
-      return newState;
+      return { ...state, paletteName: action.paletteName };
     case "SETEMOJI":
-      return newState;
+      return { ...state, emoji: action.emoji };
     case "CLEAR":
-      return [];
+      return {
+        ...state,
+        colors: []
+      };
     default:
       return state;
   }

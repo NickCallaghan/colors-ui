@@ -21,7 +21,8 @@ function ColorDrawer(props) {
   const theme = useTheme();
   const [pickerColor, setPickerColor] = React.useState("#CC25E0");
   const [colorName, setColorName, resetColorName] = useInputState();
-  const newPaletteColors = useContext(NewPaletteContext);
+  const newPalette = useContext(NewPaletteContext);
+  const { colors } = newPalette;
   const dispatch = useContext(DispatchContext);
   const { open, toggle } = props;
 
@@ -50,7 +51,7 @@ function ColorDrawer(props) {
     //Add a validator rule to check color name is unique
     ValidatorForm.addValidationRule("isUniqueColorName", value => {
       let isValid;
-      isValid = newPaletteColors.every(
+      isValid = colors.every(
         ({ name }) => name.toLowerCase() !== value.toLowerCase()
       );
       return isValid;
@@ -58,10 +59,10 @@ function ColorDrawer(props) {
     // Add validator rule to ensure the color is unique
     ValidatorForm.addValidationRule("isUniqueColor", () => {
       let isValid;
-      isValid = newPaletteColors.every(({ hex }) => hex !== pickerColor);
+      isValid = colors.every(({ hex }) => hex !== pickerColor);
       return isValid;
     });
-  }, [newPaletteColors, pickerColor]);
+  }, [colors, pickerColor]);
 
   return (
     <Drawer
@@ -101,7 +102,7 @@ function ColorDrawer(props) {
             color="secondary"
             variant="contained"
             onClick={handleRandomColor}
-            disabled={newPaletteColors.length < 20 ? false : true}
+            disabled={colors.length < 20 ? false : true}
           >
             Random Color
           </Button>
@@ -131,10 +132,10 @@ function ColorDrawer(props) {
             color="primary"
             type="submit"
             onClick={handleAddColor}
-            disabled={newPaletteColors.length < 20 ? false : true}
+            disabled={colors.length < 20 ? false : true}
             fullWidth
           >
-            {newPaletteColors.length < 20 ? "Add To Palette" : "Palette Full"}
+            {colors.length < 20 ? "Add To Palette" : "Palette Full"}
           </Button>
         </ValidatorForm>
       </Wrapper>
