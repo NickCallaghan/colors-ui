@@ -33,8 +33,6 @@ function DraggableColorBox(props) {
   const dispatch = useContext(DispatchContext);
 
   const handleDelete = () => {
-    console.log("Handle Delete");
-    console.log(`Deleting color ${props.color}`);
     dispatch({ type: "REMOVE", color: props.color });
   };
   return (

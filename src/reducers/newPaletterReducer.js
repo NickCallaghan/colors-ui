@@ -21,7 +21,6 @@ const newPaletteReducer = (state, action) => {
       };
     // Remove a color from the new platette
     case "REMOVE":
-      console.log(`Removing ${action.color}`);
       return {
         ...state,
         colors: state.colors.filter(color => color.color !== action.color)
