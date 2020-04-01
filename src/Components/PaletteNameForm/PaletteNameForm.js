@@ -20,7 +20,7 @@ export default function PaletteNameForm(props) {
   const [inputValue, setInputValue] = useState("");
 
   const handleClose = () => {
-    toggle();
+    props.hideForm();
   };
 
   const handleSetPaletteName = () => {

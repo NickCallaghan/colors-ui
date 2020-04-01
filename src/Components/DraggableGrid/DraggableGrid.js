@@ -6,12 +6,21 @@ import DraggableColorBox from "../DraggableColorBox/DraggableColorBox";
 
 function DraggableGrid() {
   const newPalette = useContext(NewPaletteContext);
-  console.log(newPalette);
   const { colors } = newPalette;
-  console.log(colors);
+
+  const styles = {
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+    height: "auto",
+    margin: 0,
+    padding: 0
+  };
 
   return (
-    <div style={{ height: "100%" }}>
+    <div style={styles}>
       {colors.map((color, i) => {
         return (
           <DraggableColorBox

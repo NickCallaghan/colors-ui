@@ -10,22 +10,27 @@ import { withStyles } from "@material-ui/styles";
 const styles = {
   root: {
     width: "20%",
-    height: "calc(25% - (69px/4))",
+    height: "calc(25vh - (69px/4))",
     display: "inline-block",
     position: "relative",
-    cursor: "pointer"
-  },
-  wrapper: {
-    display: "flex",
-    height: "100%",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center"
+    cursor: "pointer",
+    margin: 0,
+    padding: 0
   },
   deleteIcon: {
     position: "absolute",
     bottom: "0.2em",
     right: "0.2em"
+  },
+  colorName: {
+    position: "absolute",
+    top: "0.5em",
+    left: "0.4em",
+    margin: 0,
+    padding: 0,
+    textTransform: "uppercase",
+    color: "#FFF",
+    fontWeight: "bold"
   }
 };
 
@@ -40,13 +45,10 @@ function DraggableColorBox(props) {
       className={props.classes.root}
       style={{ backgroundColor: props.color }}
     >
-      <div className={props.classes.wrapper}>
-        <p>{props.color}</p>
-        <p>{props.name}</p>
-        <IconButton onClick={handleDelete} className={props.classes.deleteIcon}>
-          <DeleteIcon />
-        </IconButton>
-      </div>
+      <p className={props.classes.colorName}>{props.name}</p>
+      <IconButton onClick={handleDelete} className={props.classes.deleteIcon}>
+        <DeleteIcon />
+      </IconButton>
     </div>
   );
 }

@@ -56,6 +56,10 @@ export default function NewPalettePage(props) {
     dispatch({ type: "SORT", newOrder });
   };
 
+  const handleHideForm = () => {
+    setShowMetaForm(false);
+  };
+
   // useEffect(() => {
   //   if (newPalette.name !== null && newPalette.colors > 3) {
   //     handleSavePalette();
@@ -125,6 +129,7 @@ export default function NewPalettePage(props) {
             setShowMetaForm={setShowMetaForm}
             palettes={palettes}
             savePalette={handleSavePalette}
+            hideForm={handleHideForm}
           />
         )}
         <DraggableGrid onSortEnd={handleSortEnd} axis="xy" distance={1} />

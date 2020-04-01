@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Picker } from "emoji-mart";
+import "emoji-mart/css/emoji-mart.css";
+
 import PaletteNameForm from "../PaletteNameForm/PaletteNameForm";
 
 export default function PaletteMetaForm(props) {
@@ -17,7 +19,9 @@ export default function PaletteMetaForm(props) {
         toggle={() => toggle(paletteNameOpen, setPaletteNameOpen)}
         palettes={props.palettes}
         savePalette={props.savePalette}
+        hideForm={props.hideForm}
       />
+      <Picker />
     </div>
   );
 }
