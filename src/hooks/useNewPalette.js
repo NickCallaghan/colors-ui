@@ -16,7 +16,7 @@ const defaultColors = [
 export default function useNewPalette() {
   const emptyPalette = {
     paletteName: null,
-    emoji: "🎅",
+    emoji: null,
     colors: [...defaultColors],
     id: uuid()
   };

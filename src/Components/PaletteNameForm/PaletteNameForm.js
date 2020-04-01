@@ -34,7 +34,7 @@ export default function PaletteNameForm(props) {
     if (newPalette.paletteName !== null) {
       props.savePalette();
     }
-  }, [newPalette]);
+  }, [newPalette, props]);
 
   useEffect(() => {
     //Validators goes here

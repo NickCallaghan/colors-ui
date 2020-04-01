@@ -1,14 +1,13 @@
 import { v4 as uuid } from "uuid";
 
 const emptyPalette = {
-  paletteName: [],
-  emoji: "🥵",
+  paletteName: null,
+  emoji: null,
   colors: [],
   id: uuid()
 };
 
 const newPaletteReducer = (state, action) => {
-  let newState;
   switch (action.type) {
     //Add a color to the new palette
     case "ADD":

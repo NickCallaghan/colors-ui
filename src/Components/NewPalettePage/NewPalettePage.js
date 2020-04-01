@@ -39,7 +39,7 @@ export default function NewPalettePage(props) {
     setDrawerOpen(true);
   };
 
-  const handleSavePalette = () => {
+  const handleSavePalette = useCallback(() => {
     if (
       newPalette.paletteName &&
       newPalette.emoji &&
@@ -49,6 +49,11 @@ export default function NewPalettePage(props) {
       props.history.push("/");
       dispatch({ type: "RESET" });
     }
+  }, [newPalette, props, dispatch]);
+
+  const goBack = () => {
+    dispatch({ type: "RESET" });
+    props.history.push("/");
   };
 
   const handleSortEnd = ({ oldIndex, newIndex }) => {
@@ -60,12 +65,16 @@ export default function NewPalettePage(props) {
     setShowMetaForm(false);
   };
 
-  // useEffect(() => {
-  //   if (newPalette.name !== null && newPalette.colors > 3) {
-  //     handleSavePalette();
-  //     console.log("Palette Save Ran");
-  //   }
-  // }, [newPalette, handleSavePalette]);
+  useEffect(() => {
+    if (
+      newPalette.name !== null &&
+      newPalette.colors.length > 0 &&
+      newPalette.emoji
+    ) {
+      handleSavePalette();
+      dispatch({ type: "RESET" });
+    }
+  }, [newPalette, handleSavePalette, dispatch]);
 
   return (
     <div className={classes.root}>
@@ -96,7 +105,7 @@ export default function NewPalettePage(props) {
             <Button
               variant="contained"
               color="secondary"
-              onClick={() => props.history.push("/")}
+              onClick={() => goBack()}
             >
               Go Back
             </Button>
@@ -106,6 +115,7 @@ export default function NewPalettePage(props) {
             variant="contained"
             color="primary"
             onClick={() => setShowMetaForm(true)}
+            disabled={colors.length < 2 ? true : false}
           >
             Save Palette
           </Button>
