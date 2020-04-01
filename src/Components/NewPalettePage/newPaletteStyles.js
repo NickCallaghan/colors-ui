@@ -65,6 +65,12 @@ const useStyles = makeStyles(theme => ({
   },
   addButton: {
     marginTop: "1em"
+  },
+  AppBarButtons: {
+    marginLeft: "auto",
+    "& Button": {
+      marginRight: "0.5em"
+    }
   }
 }));
 

@@ -85,6 +85,15 @@ export default function NewPalettePage(props) {
           <Typography variant="h6" className={classes.sidebarHeading} noWrap>
             Create a new palette
           </Typography>
+          <div className={classes.AppBarButtons}>
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={() => props.history.push("/")}
+            >
+              Go Back
+            </Button>
+          </div>
 
           <Button
             variant="contained"
