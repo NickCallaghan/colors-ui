@@ -3,20 +3,16 @@ import { backgroundImage } from "./backgroundImage";
 export default {
   root: {
     backgroundColor: "#131b70",
-
-    // backgroundImage: backgroundImage,
-    padding: "2em 0 4em"
-    // backgroundAttachment: "fixed",
-    // display: "flex",
-    // alignItems: "flex-start",
-    // justifyContent: "center",
-    // minWidth: "550px",
-    // height: "auto"
+    minHeight: "100vh",
+    backgroundImage: backgroundImage,
+    padding: "2em 0 4em",
+    backgroundAttachment: "fixed"
   },
   container: {
     //center the whole page
-    maxWidth: "60%",
-    margin: "0 auto"
+    maxWidth: "800px",
+    margin: "0 auto",
+    padding: "0 3em"
   },
   nav: {
     display: "flex",
@@ -24,6 +20,7 @@ export default {
     color: "white",
     flexDirection: "row",
     alignItems: "center",
+    marginBottom: "1em",
     "& a": {
       color: "#fff",
       marginLeft: "auto"
@@ -34,8 +31,7 @@ export default {
     display: "grid",
     gridTemplateColumns: "repeat(auto-fit,minmax(150px, 1fr))",
     gridTemplateRows: "repeat(auto-fit, minmax(200px, 1fr))",
-
-    gridGap: "5%"
+    gridGap: "20px"
   },
   links: {
     textDecoration: "none"
