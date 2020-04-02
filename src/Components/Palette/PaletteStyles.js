@@ -5,9 +5,9 @@ export default {
   },
   PaletteColors: {
     height: "90vh",
-    display: "flex",
-    flexWrap: "wrap",
+
+    flexWrap: "nowrap",
     marginBottom: "0",
-    flexDirection: "row"
+    flexDirection: "column"
   }
 };

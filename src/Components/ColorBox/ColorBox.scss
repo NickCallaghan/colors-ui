@@ -1,10 +1,11 @@
 .ColorBox {
-  width: 20%;
   height: 25%;
+  width: 100%;
+  flex: 1 1 1;
   display: inline-block;
   position: relative;
   cursor: pointer;
-  marginbottom: "-3.5px";
+  margin-bottom: -3.5px;
   background-color: black;
 
   .copy-button,
@@ -27,6 +28,11 @@
     transition: 0.2s opacity;
   }
 
+  .colorName {
+    font-size: 1.5rem;
+    margin: 0 0 0.3em 0.7em;
+  }
+
   .copy-button {
     opacity: 0;
   }
@@ -40,7 +46,6 @@
     left: 0;
     bottom: 0;
     width: 100%;
-    padding: 10px;
     color: black;
     text-align: left;
     letter-spacing: 1px;
@@ -48,13 +53,12 @@
     font-size: 12px;
   }
   .see-more {
+    font-size: 1.5rem;
     position: absolute;
     right: 0;
     bottom: 0;
     background-color: rgba(255, 255, 255, 0.3);
-    height: 30px;
-    width: 60px;
-    padding-top: 5px;
+    padding: 0.3em 0.7em 0.3em 0.3em;
     text-transform: uppercase;
   }
 }
@@ -93,7 +97,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: 4rem;
+  font-size: 2rem;
   transform: scale(0.1);
   opacity: 0;
   color: white;
