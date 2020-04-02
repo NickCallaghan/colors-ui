@@ -3,19 +3,20 @@ import { backgroundImage } from "./backgroundImage";
 export default {
   root: {
     backgroundColor: "#131b70",
-    backgroundImage: backgroundImage,
-    backgroundAttachment: "fixed",
-    minHeight: "130vh",
-    display: "flex",
-    alignItems: "flex-start",
-    justifyContent: "center"
+
+    // backgroundImage: backgroundImage,
+    padding: "2em 0 4em"
+    // backgroundAttachment: "fixed",
+    // display: "flex",
+    // alignItems: "flex-start",
+    // justifyContent: "center",
+    // minWidth: "550px",
+    // height: "auto"
   },
   container: {
-    width: "50%",
-    display: "flex",
-    alignItems: "flex-start",
-    flexDirection: "column",
-    flexWrap: "wrap"
+    //center the whole page
+    maxWidth: "60%",
+    margin: "0 auto"
   },
   nav: {
     display: "flex",
@@ -29,10 +30,11 @@ export default {
     }
   },
   palettes: {
-    boxSizing: "border-box",
     width: "100%",
     display: "grid",
-    gridTemplateColumns: "repeat(3,30%)",
+    gridTemplateColumns: "repeat(auto-fit,minmax(150px, 1fr))",
+    gridTemplateRows: "repeat(auto-fit, minmax(200px, 1fr))",
+
     gridGap: "5%"
   },
   links: {
