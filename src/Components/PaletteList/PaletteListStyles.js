@@ -5,7 +5,6 @@ export default {
     backgroundColor: "#131b70",
     minHeight: "100vh",
     backgroundImage: backgroundImage,
-    padding: "2em 0 4em",
     backgroundAttachment: "fixed"
   },
   container: {
