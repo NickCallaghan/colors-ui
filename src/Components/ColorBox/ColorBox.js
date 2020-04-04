@@ -10,10 +10,10 @@ const isDarkColor = props =>
 
 const styles = {
   ColorBox: {
-    // height: props => (props.tall ? "50%" : "25%")
+    height: props => props.tall ? "50%" : "25%"
   },
   dynamicTextColor: {
-    color: props => isDarkColor(props)
+    color: props => isDarkColor(props),
   }
 };
 
