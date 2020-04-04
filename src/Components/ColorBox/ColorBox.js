@@ -10,10 +10,10 @@ const isDarkColor = props =>
 
 const styles = {
   ColorBox: {
-    height: props => (props.tall ? "50%" : "25%")
+    height: props => props.tall ? "50%" : "25%"
   },
   dynamicTextColor: {
-    color: props => isDarkColor(props)
+    color: props => isDarkColor(props),
   }
 };
 
@@ -40,7 +40,7 @@ class ColorBox extends Component {
 
     const linkDiv = (
       <Link to={moreUrl} onClick={e => e.stopPropagation()}>
-        <span className={`see-more ${classes.dynamicTextColor}`}>more</span>
+        <div className={`see-more ${classes.dynamicTextColor}`}>more</div>
       </Link>
     );
 
@@ -60,7 +60,9 @@ class ColorBox extends Component {
           </div>
           <div className="copy-container">
             <div className="box-content">
-              <span className={classes.dynamicTextColor}>{name}</span>
+              <div className={`${classes.dynamicTextColor} colorName`}>
+                {name}
+              </div>
             </div>
             <button className={`copy-button ${classes.dynamicTextColor}`}>
               Copy

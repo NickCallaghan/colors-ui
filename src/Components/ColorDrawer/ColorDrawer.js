@@ -49,7 +49,7 @@ function ColorDrawer(props) {
 
   useEffect(() => {
     //Add a validator rule to check color name is unique
-    ValidatorForm.addValidationRule("isUniqueColorName", value => {
+    ValidatorForm.addValidationRule("isUniqueColorName", (value) => {
       let isValid;
       isValid = colors.every(
         ({ name }) => name.toLowerCase() !== value.toLowerCase()
@@ -71,7 +71,7 @@ function ColorDrawer(props) {
       anchor="left"
       open={open}
       classes={{
-        paper: classes.drawerPaper
+        paper: classes.drawerPaper,
       }}
     >
       <div className={classes.drawerHeader}>
@@ -92,7 +92,6 @@ function ColorDrawer(props) {
         <div className={classes.buttonRow}>
           <Button
             color="default"
-            // variant="contained"
             onClick={handleClearPalette}
             style={{ marginRight: ".5em" }}
           >
@@ -109,7 +108,7 @@ function ColorDrawer(props) {
         </div>
         <ChromePicker
           color={pickerColor}
-          onChange={e => setPickerColor(e.hex)}
+          onChange={(e) => setPickerColor(e.hex)}
           width="100%"
           style={{ margin: "0 auto" }}
         />
@@ -117,12 +116,12 @@ function ColorDrawer(props) {
           <TextValidator
             label="Color Name"
             value={colorName}
-            onChange={e => setColorName(e.target.value)}
+            onChange={(e) => setColorName(e.target.value)}
             validators={["required", "isUniqueColorName", "isUniqueColor"]}
             errorMessages={[
               "this field is required",
               "Color name must be unique",
-              "Color already in palette"
+              "Color already in palette",
             ]}
             fullWidth
           />
